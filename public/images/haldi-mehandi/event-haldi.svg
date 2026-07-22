@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 2000" width="1600" height="2000" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#fdf0d8"/>
+      <stop offset="1" stop-color="#f0d8a8"/>
+    </linearGradient>
+  </defs>
+  <rect width="1600" height="2000" fill="url(#bg)"/>
+  <!-- Floor cushions -->
+  <g transform="translate(400,1400)">
+    <rect x="-200" y="0" width="400" height="80" rx="20" fill="#800020"/>
+    <rect x="-160" y="-30" width="320" height="60" rx="15" fill="#c9a24b"/>
+  </g>
+  <!-- Brass bowls with haldi -->
+  <g transform="translate(300,1300)">
+    <ellipse cx="0" cy="20" rx="60" ry="20" fill="#b89020"/>
+    <ellipse cx="0" cy="0" rx="60" ry="18" fill="#d4af37"/>
+    <ellipse cx="0" cy="-5" rx="50" ry="14" fill="#e8a020"/>
+  </g>
+  <g transform="translate(1300,1350)">
+    <ellipse cx="0" cy="20" rx="60" ry="20" fill="#b89020"/>
+    <ellipse cx="0" cy="0" rx="60" ry="18" fill="#d4af37"/>
+    <ellipse cx="0" cy="-5" rx="50" ry="14" fill="#e8a020"/>
+  </g>
+  <!-- Marigold garlands hanging -->
+  <g fill="#f0c040">
+    <circle cx="200" cy="200" r="18"/><circle cx="280" cy="220" r="18"/><circle cx="360" cy="240" r="18"/>
+    <circle cx="1240" cy="200" r="18"/><circle cx="1320" cy="220" r="18"/><circle cx="1400" cy="240" r="18"/>
+  </g>
+  <!-- Couple applying haldi -->
+  <g transform="translate(800,1100)">
+    <!-- Person 1 (seated, applying) -->
+    <g transform="translate(-150,0)">
+      <ellipse cx="0" cy="200" rx="120" ry="160" fill="#800020"/>
+      <ellipse cx="0" cy="-20" rx="60" ry="70" fill="#f5d8a0"/>
+      <ellipse cx="-15" cy="-30" rx="6" ry="8" fill="#000"/>
+      <ellipse cx="15" cy="-30" rx="6" ry="8" fill="#000"/>
+      <path d="M-10,0 Q0,10 10,0" stroke="#800020" stroke-width="2" fill="none"/>
+      <!-- Hand with haldi -->
+      <ellipse cx="80" cy="100" rx="30" ry="20" fill="#f5d8a0" transform="rotate(30 80 100)"/>
+      <ellipse cx="100" cy="110" rx="20" ry="14" fill="#e8a020"/>
+    </g>
+    <!-- Person 2 (seated, receiving) -->
+    <g transform="translate(150,0)">
+      <ellipse cx="0" cy="200" rx="120" ry="160" fill="#0b3d91"/>
+      <ellipse cx="0" cy="-20" rx="60" ry="70" fill="#f5d8a0"/>
+      <ellipse cx="-15" cy="-30" rx="6" ry="8" fill="#000"/>
+      <ellipse cx="15" cy="-30" rx="6" ry="8" fill="#000"/>
+      <path d="M-10,0 Q0,10 10,0" stroke="#800020" stroke-width="2" fill="none"/>
+      <!-- Hand extended -->
+      <ellipse cx="-80" cy="100" rx="30" ry="20" fill="#f5d8a0" transform="rotate(-30 -80 100)"/>
+    </g>
+  </g>
+  <!-- Decorative background foliage -->
+  <g fill="#3a7a3a" opacity="0.4">
+    <ellipse cx="100" cy="1900" rx="200" ry="50"/>
+    <ellipse cx="1500" cy="1900" rx="200" ry="50"/>
+  </g>
+</svg>

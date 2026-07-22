@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 1920" width="1080" height="1920">
+  <!-- Brass haldi bowl, flower vessel, diya, scattered petals along bottom -->
+  <g transform="translate(200,1700)">
+    <ellipse cx="0" cy="20" rx="60" ry="20" fill="#b89020"/>
+    <ellipse cx="0" cy="0" rx="60" ry="18" fill="#d4af37"/>
+    <ellipse cx="0" cy="-5" rx="50" ry="14" fill="#e8c040"/>
+    <!-- Turmeric paste -->
+    <ellipse cx="0" cy="-5" rx="40" ry="10" fill="#e8a020"/>
+  </g>
+  <g transform="translate(540,1720)">
+    <ellipse cx="0" cy="20" rx="80" ry="24" fill="#b89020"/>
+    <ellipse cx="0" cy="0" rx="80" ry="22" fill="#d4af37"/>
+    <ellipse cx="0" cy="-5" rx="70" ry="18" fill="#e8c040"/>
+    <!-- Flowers in vessel -->
+    <g fill="#f0a0c0">
+      <circle cx="-40" cy="-20" r="14"/><circle cx="0" cy="-30" r="16"/><circle cx="40" cy="-20" r="14"/>
+    </g>
+    <g fill="#fff5f8">
+      <circle cx="-20" cy="-25" r="10"/><circle cx="20" cy="-25" r="10"/>
+    </g>
+  </g>
+  <g transform="translate(880,1700)">
+    <!-- Diya -->
+    <ellipse cx="0" cy="20" rx="40" ry="14" fill="#8b6f47"/>
+    <ellipse cx="0" cy="10" rx="40" ry="12" fill="#d4af37"/>
+    <path d="M0,0 Q-8,-20 0,-30 Q8,-20 0,0" fill="#f0a040"/>
+    <ellipse cx="0" cy="-15" rx="6" ry="10" fill="#fff8b0"/>
+  </g>
+  <!-- Scattered petals -->
+  <g fill="#f0a020" opacity="0.8">
+    <ellipse cx="100" cy="1800" rx="8" ry="14" transform="rotate(20 100 1800)"/>
+    <ellipse cx="350" cy="1820" rx="8" ry="14" transform="rotate(-30 350 1820)"/>
+    <ellipse cx="650" cy="1800" rx="8" ry="14" transform="rotate(40 650 1800)"/>
+    <ellipse cx="900" cy="1820" rx="8" ry="14" transform="rotate(-20 900 1820)"/>
+  </g>
+  <g fill="#f0c040" opacity="0.8">
+    <ellipse cx="200" cy="1830" rx="6" ry="12"/><ellipse cx="500" cy="1840" rx="6" ry="12"/>
+    <ellipse cx="780" cy="1830" rx="6" ry="12"/><ellipse cx="1000" cy="1840" rx="6" ry="12"/>
+  </g>
+</svg>

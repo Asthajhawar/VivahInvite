@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 1920" width="1080" height="1920">
+  <g fill="#5a8a4a">
+    <!-- Left side leaves -->
+    <ellipse cx="80" cy="1700" rx="120" ry="50" transform="rotate(-20 80 1700)"/>
+    <ellipse cx="200" cy="1750" rx="100" ry="40" transform="rotate(10 200 1750)"/>
+    <ellipse cx="40" cy="1620" rx="80" ry="35" transform="rotate(-40 40 1620)"/>
+    <!-- Right side -->
+    <ellipse cx="1000" cy="1700" rx="120" ry="50" transform="rotate(20 1000 1700)"/>
+    <ellipse cx="880" cy="1750" rx="100" ry="40" transform="rotate(-10 880 1750)"/>
+    <ellipse cx="1040" cy="1620" rx="80" ry="35" transform="rotate(40 1040 1620)"/>
+    <!-- Center bottom -->
+    <ellipse cx="540" cy="1800" rx="200" ry="40"/>
+  </g>
+  <g fill="#3a6a3a">
+    <ellipse cx="100" cy="1680" rx="60" ry="25" transform="rotate(-30 100 1680)"/>
+    <ellipse cx="980" cy="1680" rx="60" ry="25" transform="rotate(30 980 1680)"/>
+  </g>
+  <!-- Lotus flowers -->
+  <g fill="#f0a0c0">
+    <ellipse cx="120" cy="1660" rx="14" ry="30"/><ellipse cx="100" cy="1665" rx="12" ry="26" transform="rotate(-30 100 1665)"/>
+    <ellipse cx="140" cy="1665" rx="12" ry="26" transform="rotate(30 140 1665)"/>
+    <ellipse cx="960" cy="1660" rx="14" ry="30"/><ellipse cx="940" cy="1665" rx="12" ry="26" transform="rotate(-30 940 1665)"/>
+    <ellipse cx="980" cy="1665" rx="12" ry="26" transform="rotate(30 980 1665)"/>
+  </g>
+  <circle cx="120" cy="1660" r="8" fill="#d4af37"/>
+  <circle cx="960" cy="1660" r="8" fill="#d4af37"/>
+</svg>

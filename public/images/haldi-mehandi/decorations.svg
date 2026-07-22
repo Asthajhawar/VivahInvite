@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 1920" width="1080" height="1920">
+  <!-- Silk drapes + mango leaves + garlands framing top and sides -->
+  <g transform="translate(0,0)">
+    <path d="M0,0 Q540,120 1080,0 L1080,180 Q540,300 0,180 Z" fill="#800020" opacity="0.85"/>
+    <path d="M0,80 Q540,200 1080,80 L1080,160 Q540,280 0,160 Z" fill="#c9a24b" opacity="0.6"/>
+  </g>
+  <!-- Mango leaves -->
+  <g fill="#3a7a3a">
+    <ellipse cx="80" cy="180" rx="40" ry="14" transform="rotate(-30 80 180)"/>
+    <ellipse cx="160" cy="220" rx="40" ry="14" transform="rotate(-20 160 220)"/>
+    <ellipse cx="240" cy="250" rx="40" ry="14" transform="rotate(-10 240 250)"/>
+    <ellipse cx="1000" cy="180" rx="40" ry="14" transform="rotate(30 1000 180)"/>
+    <ellipse cx="920" cy="220" rx="40" ry="14" transform="rotate(20 920 220)"/>
+    <ellipse cx="840" cy="250" rx="40" ry="14" transform="rotate(10 840 250)"/>
+  </g>
+  <!-- Jasmine/marigold garlands -->
+  <g fill="#f0c040">
+    <circle cx="120" cy="240" r="12"/><circle cx="200" cy="270" r="12"/><circle cx="280" cy="290" r="12"/>
+    <circle cx="360" cy="300" r="12"/><circle cx="440" cy="305" r="12"/>
+    <circle cx="640" cy="305" r="12"/><circle cx="720" cy="300" r="12"/>
+    <circle cx="800" cy="290" r="12"/><circle cx="880" cy="270" r="12"/><circle cx="960" cy="240" r="12"/>
+  </g>
+  <g fill="#fff8ed">
+    <circle cx="160" cy="260" r="8"/><circle cx="240" cy="280" r="8"/><circle cx="320" cy="295" r="8"/>
+    <circle cx="760" cy="295" r="8"/><circle cx="840" cy="280" r="8"/><circle cx="920" cy="260" r="8"/>
+  </g>
+  <!-- Side drapes -->
+  <path d="M0,200 Q40,600 0,1000 L60,1000 Q100,600 60,200 Z" fill="#800020" opacity="0.7"/>
+  <path d="M1080,200 Q1040,600 1080,1000 L1020,1000 Q980,600 1020,200 Z" fill="#800020" opacity="0.7"/>
+</svg>

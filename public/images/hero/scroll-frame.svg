@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 280" width="280" height="280">
+  <defs>
+    <radialGradient id="frame" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#e8f0e0"/>
+      <stop offset="1" stop-color="#c9d9b8"/>
+    </radialGradient>
+  </defs>
+  <!-- Outer wreath flowers -->
+  <g fill="#e8a0b8">
+    <circle cx="140" cy="20" r="22"/><circle cx="100" cy="30" r="16"/><circle cx="180" cy="30" r="16"/>
+    <circle cx="60" cy="60" r="18"/><circle cx="220" cy="60" r="18"/>
+    <circle cx="140" cy="260" r="22"/><circle cx="100" cy="250" r="16"/><circle cx="180" cy="250" r="16"/>
+    <circle cx="60" cy="220" r="18"/><circle cx="220" cy="220" r="18"/>
+  </g>
+  <g fill="#fff5f8">
+    <circle cx="120" cy="25" r="12"/><circle cx="160" cy="25" r="12"/>
+    <circle cx="40" cy="90" r="14"/><circle cx="240" cy="90" r="14"/>
+    <circle cx="120" cy="255" r="12"/><circle cx="160" cy="255" r="12"/>
+    <circle cx="40" cy="190" r="14"/><circle cx="240" cy="190" r="14"/>
+  </g>
+  <g fill="#7a9a6a">
+    <ellipse cx="80" cy="40" rx="20" ry="8" transform="rotate(-30 80 40)"/>
+    <ellipse cx="200" cy="40" rx="20" ry="8" transform="rotate(30 200 40)"/>
+    <ellipse cx="80" cy="240" rx="20" ry="8" transform="rotate(30 80 240)"/>
+    <ellipse cx="200" cy="240" rx="20" ry="8" transform="rotate(-30 200 240)"/>
+  </g>
+  <!-- Inner scalloped medallion -->
+  <circle cx="140" cy="140" r="110" fill="url(#frame)" stroke="#5a8a8a" stroke-width="2"/>
+  <circle cx="140" cy="140" r="100" fill="none" stroke="#d4af37" stroke-width="1.5"/>
+  <path d="M140,40 q20,20 40,0 q20,20 40,0 q-20,20 0,40 q20,20 0,40 q-20,20 0,40 q-20,-20 -40,0 q-20,-20 -40,0 q-20,-20 0,-40 q-20,-20 0,-40 q20,-20 0,-40 z" fill="none" stroke="#d4af37" stroke-width="1.5"/>
+</svg>

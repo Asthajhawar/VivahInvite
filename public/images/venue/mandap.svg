@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 1920" width="1080" height="1920">
+  <defs>
+    <linearGradient id="stone" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#fdf6e3"/>
+      <stop offset="1" stop-color="#e8d0a8"/>
+    </linearGradient>
+  </defs>
+  <g transform="translate(540,1100)">
+    <!-- Floral canopy structure -->
+    <path d="M-300,-400 Q0,-500 300,-400 L300,-380 Q0,-480 -300,-380 Z" fill="#c9a24b"/>
+    <!-- Floral canopy drape -->
+    <path d="M-280,-380 Q0,-460 280,-380 L260,-300 Q0,-400 -260,-300 Z" fill="#800020" opacity="0.85"/>
+    <g fill="#e8a0b8">
+      <circle cx="-200" cy="-360" r="16"/><circle cx="-100" cy="-380" r="18"/><circle cx="0" cy="-390" r="20"/>
+      <circle cx="100" cy="-380" r="18"/><circle cx="200" cy="-360" r="16"/>
+    </g>
+    <!-- Ivory pillars -->
+    <rect x="-260" y="-380" width="30" height="700" fill="url(#stone)" stroke="#c9a24b" stroke-width="2"/>
+    <rect x="230" y="-380" width="30" height="700" fill="url(#stone)" stroke="#c9a24b" stroke-width="2"/>
+    <!-- Circular floral mandala platform -->
+    <ellipse cx="0" cy="320" rx="280" ry="60" fill="url(#stone)" stroke="#c9a24b" stroke-width="3"/>
+    <ellipse cx="0" cy="320" rx="220" ry="45" fill="none" stroke="#c9a24b" stroke-width="2"/>
+    <ellipse cx="0" cy="320" rx="160" ry="32" fill="none" stroke="#c9a24b" stroke-width="2"/>
+    <ellipse cx="0" cy="320" rx="100" ry="20" fill="none" stroke="#c9a24b" stroke-width="2"/>
+    <!-- Floral mandala petals -->
+    <g fill="#e8a0b8" opacity="0.7">
+      <ellipse cx="0" cy="320" rx="20" ry="40" transform="rotate(0 0 320)"/>
+      <ellipse cx="0" cy="320" rx="20" ry="40" transform="rotate(45 0 320)"/>
+      <ellipse cx="0" cy="320" rx="20" ry="40" transform="rotate(90 0 320)"/>
+      <ellipse cx="0" cy="320" rx="20" ry="40" transform="rotate(135 0 320)"/>
+      <ellipse cx="0" cy="320" rx="20" ry="40" transform="rotate(180 0 320)"/>
+      <ellipse cx="0" cy="320" rx="20" ry="40" transform="rotate(225 0 320)"/>
+      <ellipse cx="0" cy="320" rx="20" ry="40" transform="rotate(270 0 320)"/>
+      <ellipse cx="0" cy="320" rx="20" ry="40" transform="rotate(315 0 320)"/>
+    </g>
+    <circle cx="0" cy="320" r="20" fill="#d4af37"/>
+  </g>
+</svg>

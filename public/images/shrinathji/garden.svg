@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 1920" width="1080" height="1920">
+  <g fill="#5a8a4a">
+    <!-- Shrubs -->
+    <ellipse cx="200" cy="1700" rx="140" ry="50"/>
+    <ellipse cx="540" cy="1750" rx="180" ry="55"/>
+    <ellipse cx="880" cy="1700" rx="140" ry="50"/>
+    <ellipse cx="120" cy="1620" rx="100" ry="40"/>
+    <ellipse cx="960" cy="1620" rx="100" ry="40"/>
+  </g>
+  <g fill="#3a6a3a">
+    <ellipse cx="200" cy="1680" rx="80" ry="30"/>
+    <ellipse cx="880" cy="1680" rx="80" ry="30"/>
+    <ellipse cx="540" cy="1730" rx="100" ry="30"/>
+  </g>
+  <!-- Tropical foliage -->
+  <g fill="#2a5a2a">
+    <path d="M60,1600 Q40,1500 100,1480 Q140,1560 80,1620 Z"/>
+    <path d="M1020,1600 Q1040,1500 980,1480 Q940,1560 1000,1620 Z"/>
+  </g>
+  <!-- Lotus blossoms -->
+  <g fill="#f0a0c0">
+    <ellipse cx="300" cy="1700" rx="16" ry="34"/><ellipse cx="280" cy="1705" rx="14" ry="30" transform="rotate(-30 280 1705)"/>
+    <ellipse cx="320" cy="1705" rx="14" ry="30" transform="rotate(30 320 1705)"/>
+    <ellipse cx="780" cy="1700" rx="16" ry="34"/><ellipse cx="760" cy="1705" rx="14" ry="30" transform="rotate(-30 760 1705)"/>
+    <ellipse cx="800" cy="1705" rx="14" ry="30" transform="rotate(30 800 1705)"/>
+    <ellipse cx="540" cy="1740" rx="18" ry="38"/>
+  </g>
+  <circle cx="300" cy="1700" r="10" fill="#d4af37"/>
+  <circle cx="780" cy="1700" r="10" fill="#d4af37"/>
+  <circle cx="540" cy="1740" r="12" fill="#d4af37"/>
+  <!-- Lotus buds -->
+  <g fill="#e890a8">
+    <ellipse cx="180" cy="1680" rx="8" ry="20"/><ellipse cx="900" cy="1680" rx="8" ry="20"/>
+  </g>
+</svg>

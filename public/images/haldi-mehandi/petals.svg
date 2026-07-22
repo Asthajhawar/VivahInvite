@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 1920" width="1080" height="1920">
+  <!-- Loose marigold/jasmine petal fragments for particle drift -->
+  <g fill="#f0a020" opacity="0.7">
+    <ellipse cx="200" cy="200" rx="10" ry="18" transform="rotate(30 200 200)"/>
+    <ellipse cx="800" cy="400" rx="10" ry="18" transform="rotate(-20 800 400)"/>
+    <ellipse cx="400" cy="800" rx="10" ry="18" transform="rotate(60 400 800)"/>
+    <ellipse cx="900" cy="1200" rx="10" ry="18" transform="rotate(-40 900 1200)"/>
+    <ellipse cx="150" cy="1400" rx="10" ry="18" transform="rotate(15 150 1400)"/>
+  </g>
+  <g fill="#fff8ed" opacity="0.7">
+    <ellipse cx="600" cy="300" rx="6" ry="12" transform="rotate(45 600 300)"/>
+    <ellipse cx="300" cy="600" rx="6" ry="12" transform="rotate(-30 300 600)"/>
+    <ellipse cx="950" cy="900" rx="6" ry="12" transform="rotate(20 950 900)"/>
+    <ellipse cx="250" cy="1100" rx="6" ry="12" transform="rotate(-50 250 1100)"/>
+    <ellipse cx="700" cy="1500" rx="6" ry="12" transform="rotate(35 700 1500)"/>
+  </g>
+</svg>

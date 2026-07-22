@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 1920" width="1080" height="1920">
+  <g transform="translate(540,1100)">
+    <!-- Groom (cream sherwani) - left -->
+    <g transform="translate(-120,0)">
+      <ellipse cx="0" cy="280" rx="100" ry="180" fill="#fdf6e3" stroke="#c9a24b" stroke-width="2"/>
+      <path d="M-80,150 Q-100,250 -60,400 L60,400 Q100,250 80,150 Z" fill="#fdf6e3" stroke="#c9a24b" stroke-width="2"/>
+      <!-- Sherwani buttons -->
+      <g fill="#d4af37"><circle cx="0" cy="200" r="4"/><circle cx="0" cy="240" r="4"/><circle cx="0" cy="280" r="4"/><circle cx="0" cy="320" r="4"/></g>
+      <!-- Head with turban -->
+      <ellipse cx="0" cy="-40" rx="50" ry="60" fill="#f5d8a0"/>
+      <path d="M-60,-80 Q0,-160 60,-80 Q50,-40 0,-30 Q-50,-40 -60,-80 Z" fill="#800020" stroke="#c9a24b" stroke-width="2"/>
+      <path d="M-50,-90 Q0,-140 50,-90" fill="none" stroke="#d4af37" stroke-width="2"/>
+      <ellipse cx="-15" cy="-50" rx="5" ry="7" fill="#000"/>
+      <ellipse cx="15" cy="-50" rx="5" ry="7" fill="#000"/>
+      <path d="M-8,-20 Q0,-10 8,-20" stroke="#800020" stroke-width="2" fill="none"/>
+      <!-- Legs walking -->
+      <rect x="-40" y="440" width="30" height="160" fill="#fdf6e3" stroke="#c9a24b" stroke-width="1.5"/>
+      <rect x="10" y="440" width="30" height="180" fill="#fdf6e3" stroke="#c9a24b" stroke-width="1.5"/>
+      <!-- Arm holding bride -->
+      <ellipse cx="60" cy="180" rx="20" ry="40" fill="#f5d8a0" transform="rotate(30 60 180)"/>
+    </g>
+    <!-- Bride (red lehenga) - right -->
+    <g transform="translate(120,0)">
+      <ellipse cx="0" cy="280" rx="130" ry="200" fill="#800020" stroke="#c9a24b" stroke-width="2"/>
+      <path d="M-100,100 Q-140,300 -80,500 L80,500 Q140,300 100,100 Z" fill="#800020" stroke="#c9a24b" stroke-width="2"/>
+      <!-- Lehenga embroidery -->
+      <g fill="#d4af37" opacity="0.7">
+        <circle cx="0" cy="200" r="6"/><circle cx="-40" cy="250" r="5"/><circle cx="40" cy="250" r="5"/>
+        <circle cx="0" cy="320" r="6"/><circle cx="-50" cy="380" r="5"/><circle cx="50" cy="380" r="5"/>
+      </g>
+      <!-- Head with dupatta -->
+      <ellipse cx="0" cy="-40" rx="50" ry="60" fill="#f5d8a0"/>
+      <path d="M-70,-80 Q0,-180 70,-80 Q60,-30 0,-20 Q-60,-30 -70,-80 Z" fill="#800020" stroke="#d4af37" stroke-width="2" opacity="0.9"/>
+      <!-- Jewelry (maang tikka) -->
+      <path d="M0,-100 L0,-80" stroke="#d4af37" stroke-width="1.5"/>
+      <circle cx="0" cy="-78" r="6" fill="#d4af37"/>
+      <ellipse cx="-15" cy="-50" rx="5" ry="7" fill="#000"/>
+      <ellipse cx="15" cy="-50" rx="5" ry="7" fill="#000"/>
+      <path d="M-8,-20 Q0,-10 8,-20" stroke="#800020" stroke-width="2" fill="none"/>
+      <!-- Nose ring -->
+      <circle cx="0" cy="-30" r="4" fill="none" stroke="#d4af37" stroke-width="1.5"/>
+      <!-- Legs -->
+      <rect x="-30" y="480" width="25" height="120" fill="#f5d8a0"/>
+      <rect x="5" y="480" width="25" height="120" fill="#f5d8a0"/>
+      <!-- Arm holding groom -->
+      <ellipse cx="-60" cy="180" rx="20" ry="40" fill="#f5d8a0" transform="rotate(-30 -60 180)"/>
+      <!-- Bangles -->
+      <g stroke="#d4af37" stroke-width="2" fill="none">
+        <ellipse cx="-60" cy="200" rx="18" ry="6"/><ellipse cx="-60" cy="210" rx="18" ry="6"/>
+      </g>
+    </g>
+  </g>
+</svg>

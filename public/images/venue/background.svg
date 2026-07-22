@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 1920" width="1080" height="1920">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f5d8b8"/>
+      <stop offset="0.5" stop-color="#f0c890"/>
+      <stop offset="1" stop-color="#e8b870"/>
+    </linearGradient>
+  </defs>
+  <rect width="1080" height="1920" fill="url(#sky)"/>
+  <!-- Distant clouds -->
+  <g fill="#fff8ed" opacity="0.6">
+    <ellipse cx="200" cy="300" rx="120" ry="30"/>
+    <ellipse cx="800" cy="400" rx="140" ry="35"/>
+    <ellipse cx="500" cy="250" rx="100" ry="25"/>
+  </g>
+</svg>

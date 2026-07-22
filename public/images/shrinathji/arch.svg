@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 1920" width="1080" height="1920">
+  <defs>
+    <linearGradient id="stone" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#fdf6e3"/>
+      <stop offset="1" stop-color="#e8d0a8"/>
+    </linearGradient>
+  </defs>
+  <g transform="translate(540,1000)">
+    <!-- Outer arch -->
+    <path d="M-280,-400 Q-280,-700 0,-700 Q280,-700 280,-400 L280,500 L-280,500 Z" fill="url(#stone)" stroke="#b89060" stroke-width="3"/>
+    <!-- Inner opening (transparent) -->
+    <path d="M-240,-380 Q-240,-660 0,-660 Q240,-660 240,-380 Z" fill="none"/>
+    <!-- Scalloped points -->
+    <path d="M-240,-380 Q-240,-660 0,-660 Q240,-660 240,-380" fill="none" stroke="#d4af37" stroke-width="4"/>
+    <g fill="none" stroke="#d4af37" stroke-width="2">
+      <path d="M-240,-380 q30,-30 60,0 q30,-30 60,0 q30,-30 60,0 q30,-30 60,0"/>
+      <path d="M0,-660 q30,30 60,0 q30,30 60,0"/>
+      <path d="M0,-660 q-30,30 -60,0 q-30,30 -60,0"/>
+      <path d="M240,-380 q-30,-30 -60,0 q-30,-30 -60,0 q-30,-30 -60,0 q-30,-30 -60,0"/>
+    </g>
+    <!-- Sandstone outline -->
+    <path d="M-280,-400 Q-280,-700 0,-700 Q280,-700 280,-400" fill="none" stroke="#b89060" stroke-width="6"/>
+    <!-- Finial -->
+    <circle cx="0" cy="-720" r="14" fill="#d4af37"/>
+    <line x1="0" y1="-740" x2="0" y2="-760" stroke="#d4af37" stroke-width="3"/>
+  </g>
+</svg>

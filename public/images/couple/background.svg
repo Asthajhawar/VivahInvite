@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 1920" width="1080" height="1920">
+  <defs>
+    <radialGradient id="paper" cx="0.5" cy="0.5" r="0.7">
+      <stop offset="0" stop-color="#fdf6e3"/>
+      <stop offset="1" stop-color="#f0e0c0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1080" height="1920" fill="url(#paper)"/>
+  <!-- Faded florals at edges -->
+  <g fill="#e8a0b8" opacity="0.18">
+    <circle cx="80" cy="80" r="60"/><circle cx="160" cy="140" r="40"/><circle cx="60" cy="200" r="50"/>
+    <circle cx="1000" cy="80" r="60"/><circle cx="920" cy="140" r="40"/><circle cx="1020" cy="200" r="50"/>
+    <circle cx="80" cy="1840" r="60"/><circle cx="160" cy="1780" r="40"/>
+    <circle cx="1000" cy="1840" r="60"/><circle cx="920" cy="1780" r="40"/>
+  </g>
+  <g stroke="#7a9a6a" stroke-width="2" fill="none" opacity="0.15">
+    <path d="M0,300 Q200,320 280,400"/><path d="M1080,300 Q880,320 800,400"/>
+    <path d="M0,1600 Q200,1580 280,1500"/><path d="M1080,1600 Q880,1580 800,1500"/>
+  </g>
+</svg>

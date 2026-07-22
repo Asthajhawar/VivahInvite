@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 1920" width="1080" height="1920">
+  <defs>
+    <linearGradient id="peach" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#fdf0e0"/>
+      <stop offset="1" stop-color="#e8c8a0"/>
+    </linearGradient>
+    <linearGradient id="sand" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#e8d0a8"/>
+      <stop offset="1" stop-color="#c9a96b"/>
+    </linearGradient>
+  </defs>
+  <!-- Raised platform -->
+  <rect x="240" y="1400" width="600" height="80" fill="url(#sand)" stroke="#b89060" stroke-width="2"/>
+  <rect x="220" y="1480" width="640" height="20" fill="#b89060"/>
+  <!-- Central pavilion -->
+  <g transform="translate(540,900)">
+    <!-- Crown / dome -->
+    <ellipse cx="0" cy="-360" rx="60" ry="40" fill="url(#peach)" stroke="#c9a24b" stroke-width="2"/>
+    <path d="M-40,-360 Q0,-420 40,-360" fill="url(#peach)" stroke="#c9a24b" stroke-width="2"/>
+    <circle cx="0" cy="-420" r="12" fill="#d4af37"/>
+    <!-- Mini domed kiosks -->
+    <g transform="translate(-220,-280)">
+      <ellipse cx="0" cy="0" rx="30" ry="20" fill="url(#peach)" stroke="#c9a24b"/>
+      <rect x="-20" y="0" width="40" height="80" fill="url(#peach)" stroke="#c9a24b"/>
+    </g>
+    <g transform="translate(220,-280)">
+      <ellipse cx="0" cy="0" rx="30" ry="20" fill="url(#peach)" stroke="#c9a24b"/>
+      <rect x="-20" y="0" width="40" height="80" fill="url(#peach)" stroke="#c9a24b"/>
+    </g>
+    <!-- Columns -->
+    <rect x="-200" y="-280" width="30" height="700" fill="url(#peach)" stroke="#c9a24b" stroke-width="2"/>
+    <rect x="170" y="-280" width="30" height="700" fill="url(#peach)" stroke="#c9a24b" stroke-width="2"/>
+    <!-- Central arch -->
+    <path d="M-170,-280 Q-170,-100 0,-100 Q170,-100 170,-280 L170,420 L-170,420 Z" fill="url(#peach)" stroke="#c9a24b" stroke-width="3"/>
+    <path d="M-140,-260 Q-140,-80 0,-80 Q140,-80 140,-260 Z" fill="#fdf0e0"/>
+    <!-- Side arches -->
+    <path d="M-300,-200 Q-300,-80 -240,-80 Q-180,-80 -180,-200 L-180,420 L-300,420 Z" fill="url(#peach)" stroke="#c9a24b" stroke-width="2"/>
+    <path d="M-280,-180 Q-280,-100 -240,-100 Q-200,-100 -200,-180 Z" fill="#fdf0e0"/>
+    <path d="M180,-200 Q180,-80 240,-80 Q300,-80 300,-200 L300,420 L180,420 Z" fill="url(#peach)" stroke="#c9a24b" stroke-width="2"/>
+    <path d="M200,-180 Q200,-100 240,-100 Q280,-100 280,-180 Z" fill="#fdf0e0"/>
+    <!-- Jali panels -->
+    <g stroke="#c9a24b" stroke-width="1" fill="none" opacity="0.6">
+      <circle cx="-240" cy="0" r="12"/><circle cx="-240" cy="40" r="12"/><circle cx="-240" cy="80" r="12"/>
+      <circle cx="240" cy="0" r="12"/><circle cx="240" cy="40" r="12"/><circle cx="240" cy="80" r="12"/>
+    </g>
+    <!-- Floral carvings -->
+    <g fill="#c9a24b" opacity="0.5">
+      <circle cx="0" cy="-260" r="8"/><circle cx="-30" cy="-250" r="6"/><circle cx="30" cy="-250" r="6"/>
+    </g>
+  </g>
+</svg>
