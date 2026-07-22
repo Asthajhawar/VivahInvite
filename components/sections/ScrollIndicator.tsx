@@ -29,7 +29,7 @@ export function ScrollIndicator() {
 
   useEffect(() => {
     function onScroll() {
-      if (window.scrollY > 80) setVisible(false);
+      setVisible(window.scrollY <= 80);
     }
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
