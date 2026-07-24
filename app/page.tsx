@@ -1,5 +1,4 @@
 import { HeroArch } from "@/components/sections/HeroArch";
-import { GaneshReveal } from "@/components/sections/GaneshReveal";
 import { CoupleNames } from "@/components/sections/CoupleNames";
 import { ShrinathjiHero } from "@/components/sections/ShrinathjiHero";
 import { DateRevealCard } from "@/components/sections/DateRevealCard";
