@@ -4,6 +4,9 @@ import { useRef } from "react";
 import Image from "next/image";
 import { useGSAP } from "@gsap/react";
 import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 export function GaneshReveal() {
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -15,31 +18,51 @@ export function GaneshReveal() {
 
   useGSAP(
     () => {
+      // ── Phase 1: Ganesh starts super-zoomed-in (matching the end state
+      //    of HeroArch's arch zoom), then zooms OUT to its resting size.
+      //    All other elements fade/slide in in parallel during this zoom-out.
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: sectionRef.current,
           start: "top top",
-          end: "+=200%",
+          end: "+=250%",
           scrub: true,
           pin: true,
         },
       });
 
-      // Ganesh is already visible -- it arrived via the crossfade
-      // overlay in HeroArch, so no entrance animation here for it.
-      // Only flowers, then text, animate in.
-      tl.from(flowerARef.current, { opacity: 0, x: -60, y: -60, ease: "none" })
+      // Ganesh enters at scale ~5 (matching HeroArch exit) and zooms back to 1.
+      // transformOrigin mirrors HeroArch so it feels continuous.
+      tl.fromTo(
+        ganeshRef.current,
+        { scale: 5, transformOrigin: "50% 42%" },
+        { scale: 1, transformOrigin: "50% 50%", ease: "none", duration: 1 }
+      );
+
+      // Flowers and text all animate in during the same zoom-out window.
+      tl.from(
+        flowerARef.current,
+        { opacity: 0, x: -60, y: -60, ease: "none", duration: 1 },
+        "<" // starts at the same time as the zoom-out
+      )
         .from(
           flowerBRef.current,
-          { opacity: 0, x: 60, y: 60, ease: "none" },
+          { opacity: 0, x: 60, y: 60, ease: "none", duration: 1 },
           "<"
         )
-        .from(textTopRef.current, { opacity: 0, y: 10, ease: "none" }, ">-0.1")
+        // Text appears only after Ganesh has fully settled at its resting position
+        .from(
+          textTopRef.current,
+          { opacity: 0, y: 20, ease: "none", duration: 0.6 },
+          ">" // starts after zoom-out ends
+        )
         .from(
           textBottomRef.current,
-          { opacity: 0, y: 10, ease: "none" },
+          { opacity: 0, y: 20, ease: "none", duration: 0.6 },
           "<0.1"
-        );
+        )
+        // Hold everything fully visible so the user can read before unpinning
+        .to({}, { duration: 1.2 }, ">");
 
       if (window.matchMedia("(pointer: fine)").matches) {
         const flowerX = gsap.quickTo(flowerARef.current, "xPercent", {
