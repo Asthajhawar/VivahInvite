@@ -25,17 +25,21 @@ export function GaneshReveal() {
         },
       });
 
-      tl.from(ganeshRef.current, { opacity: 0, y: 40 })
-        .from(flowerARef.current, { opacity: 0, x: -60, y: -60 }, "<0.1")
-        .from(flowerBRef.current, { opacity: 0, x: 60, y: 60 }, "<0.1")
-        .to(ganeshRef.current, { y: "-20%", scale: 0.75, ease: "power1.inOut" })
-        .to(
-          [flowerARef.current, flowerBRef.current],
-          { scale: 1.25, opacity: 1 },
+      // Ganesh is already visible -- it arrived via the crossfade
+      // overlay in HeroArch, so no entrance animation here for it.
+      // Only flowers, then text, animate in.
+      tl.from(flowerARef.current, { opacity: 0, x: -60, y: -60, ease: "none" })
+        .from(
+          flowerBRef.current,
+          { opacity: 0, x: 60, y: 60, ease: "none" },
           "<"
         )
-        .from(textTopRef.current, { opacity: 0, y: 10 }, ">-0.2")
-        .from(textBottomRef.current, { opacity: 0, y: 10 }, "<0.15");
+        .from(textTopRef.current, { opacity: 0, y: 10, ease: "none" }, ">-0.1")
+        .from(
+          textBottomRef.current,
+          { opacity: 0, y: 10, ease: "none" },
+          "<0.1"
+        );
 
       if (window.matchMedia("(pointer: fine)").matches) {
         const flowerX = gsap.quickTo(flowerARef.current, "xPercent", {
@@ -67,14 +71,14 @@ export function GaneshReveal() {
       />
       <p
         ref={textTopRef}
-        className="absolute left-1/2 top-8 z-30 -translate-x-1/2 font-devanagari text-lg text-[#800020]"
+        className="absolute left-1/2 top-24 z-30 -translate-x-1/2 font-devanagari text-2xl text-[#800020]"
       >
         ॐ श्री गणेशाय नमः॥
       </p>
 
       <div
         ref={ganeshRef}
-        className="absolute left-1/2 top-1/2 z-10 h-[60%] w-[60%] -translate-x-1/2 -translate-y-1/2"
+        className="absolute left-1/2 top-1/2 z-10 h-[75%] w-[75%] -translate-x-1/2 -translate-y-1/2"
       >
         <Image
           src="/images/ganesh/ganeshji.png"
@@ -94,7 +98,7 @@ export function GaneshReveal() {
       </div>
       <div
         ref={flowerBRef}
-        className="absolute bottom-0 right-0 z-20 h-32 w-32"
+        className="absolute bottom-0 right-0 z-20 h-56 w-40"
       >
         <Image
           src="/images/ganesh/intro_flower_frame_3.png"
@@ -106,7 +110,7 @@ export function GaneshReveal() {
 
       <p
         ref={textBottomRef}
-        className="absolute bottom-8 left-1/2 z-30 -translate-x-1/2 text-center font-devanagari text-base leading-relaxed text-[#800020]"
+        className="absolute bottom-32 left-1/2 z-30 -translate-x-1/2 text-center font-devanagari text-xl leading-relaxed text-[#800020]"
       >
         वक्रतुण्ड महाकाय सूर्यकोटि समप्रभ।
         <br />

@@ -10,7 +10,6 @@ export default function Page() {
   return (
     <main>
       <HeroArch />
-      <GaneshReveal />
       <CoupleNames />
       <ShrinathjiHero />
       <DateRevealCard />
