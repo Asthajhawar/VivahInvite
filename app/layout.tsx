@@ -6,6 +6,11 @@ import { devanagariFont, serifFont } from "./fonts";
 export const metadata: Metadata = {
   title: "Astha & Saksham",
   description: "Wedding invitation — Astha weds Saksham",
+  icons: {
+    icon: "/favicon.svg",
+    shortcut: "/favicon.svg",
+    apple: "/favicon.svg",
+  },
 };
 
 export default function RootLayout({
