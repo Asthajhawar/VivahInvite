@@ -119,7 +119,7 @@ export function GaneshReveal() {
           alt="Lord Ganesh"
           fill
           className="object-contain scale-[0.85]"
-          style={{ left: "8px" }}
+          style={{ left: "2.2%" }}
         />
       </div>
 
@@ -133,7 +133,8 @@ export function GaneshReveal() {
       </div>
       <div
         ref={flowerBRef}
-        className="absolute -bottom-[76px] -right-6 z-20 h-60 w-40"
+        className="absolute z-20 h-60 w-40"
+        style={{ bottom: "-10.3%", right: "-1.5%" }}
       >
         <Image
           src="/images/ganesh/intro_flower_frame_3.png"

@@ -1,7 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import Image from "next/image";
+import { useGSAP } from "@gsap/react";
+import { gsap } from "gsap";
 import { MapModal } from "./MapModal";
 
 const VENUE_NAME = "Surbhi Sadan";
@@ -9,18 +11,62 @@ const VENUE_ADDRESS = "Sanganer Jaipur, Rajasthan";
 
 export function WeddingDetails() {
   const [mapOpen, setMapOpen] = useState(false);
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const landscapeRef = useRef<HTMLDivElement>(null);
+  const mandapRef = useRef<HTMLDivElement>(null);
+  const coupleRef = useRef<HTMLDivElement>(null);
+
+  useGSAP(
+    () => {
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top 85%",
+          toggleActions: "play none none none",
+          once: true,
+        },
+      });
+
+      // 1. Landscape fades up from below
+      tl.from(landscapeRef.current, {
+        opacity: 0,
+        y: 60,
+        duration: 0.9,
+        ease: "power2.out",
+      })
+        // 2. Mandap scales in
+        .from(
+          mandapRef.current,
+          { opacity: 0, scale: 0.93, duration: 0.9, ease: "power2.out" },
+          "-=0.5"
+        )
+        // 3. Couple slides in from left
+        .from(
+          coupleRef.current,
+          { opacity: 0, x: -70, duration: 0.9, ease: "power2.out" },
+          "-=0.5"
+        );
+    },
+    { scope: sectionRef }
+  );
 
   return (
-    <section className="relative flex min-h-[100dvh] flex-col justify-center overflow-hidden py-32">
+    <section
+      ref={sectionRef}
+      className="relative flex min-h-[100dvh] flex-col justify-center overflow-hidden py-32"
+    >
       <Image
         src="/images/venue/background.png"
         alt=""
         fill
         className="-z-10 object-cover"
       />
+
+      {/* Landscape — fades & rises first */}
       <div
+        ref={landscapeRef}
         className="absolute -z-10"
-        style={{ height: "90%", width: "100%", left: 0, top: "139px" }}
+        style={{ height: "90%", width: "100%", left: 0, top: "18.8%" }}
       >
         <Image
           src="/images/venue/landscape.png"
@@ -30,7 +76,9 @@ export function WeddingDetails() {
         />
       </div>
 
+      {/* Mandap — scales in second */}
       <div
+        ref={mandapRef}
         className="absolute -z-10"
         style={{ height: "146%", width: "100%", left: 0, top: 0 }}
       >
@@ -41,9 +89,11 @@ export function WeddingDetails() {
           className="object-contain"
         />
       </div>
+
+      {/* Top decorations — static, no animation */}
       <div
         className="absolute -z-10"
-        style={{ height: "57%", width: "100%", left: 0, top: "-38px" }}
+        style={{ height: "57%", width: "100%", left: 0, top: "-5.1%" }}
       >
         <Image
           src="/images/venue/top-decorations.png"
@@ -52,9 +102,12 @@ export function WeddingDetails() {
           className="object-cover"
         />
       </div>
+
+      {/* Couple — slides in from left last */}
       <div
+        ref={coupleRef}
         className="absolute -z-10"
-        style={{ height: "173%", width: "32%", left: "127px", top: 0 }}
+        style={{ height: "173%", width: "32%", left: "35.3%", top: 0 }}
       >
         <Image
           src="/images/venue/couple.png"
@@ -66,7 +119,7 @@ export function WeddingDetails() {
 
       <div
         className="relative z-10 mx-auto max-w-md text-center"
-        style={{ top: "-91px" }}
+        style={{ top: "clamp(-110px, -12.3vh, -60px)" }}
       >
         <h2 className="font-serif text-2xl text-[#1b2a4a]">Wedding Venue</h2>
         <p className="mt-1 font-serif text-lg text-[#800020]">{VENUE_NAME}</p>

@@ -101,7 +101,7 @@ export function CoupleNames() {
         style={{
           height: "141%",
           width: "76%",
-          left: "45px",
+          left: "12.5%",
           top: 0,
           bottom: 0,
         }}
@@ -119,7 +119,7 @@ export function CoupleNames() {
         style={{
           height: "171%",
           width: "41%",
-          left: "77px",
+          left: "21.4%",
           top: 0,
           bottom: 0,
         }}

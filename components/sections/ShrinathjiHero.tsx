@@ -223,7 +223,7 @@ export function ShrinathjiHero() {
       <div
         ref={cowRightRef}
         className="absolute"
-        style={{ height: "181%", width: "51%", left: "178px", top: 0 }}
+        style={{ height: "181%", width: "51%", left: "49.4%", top: 0 }}
       >
         <Image
           src="/images/shrinathji/right-cow.png"

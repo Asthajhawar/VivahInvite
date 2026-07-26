@@ -303,7 +303,7 @@ export function DateRevealCard() {
       {/* Card wrapper */}
       <div
         className="relative overflow-hidden rounded-2xl shadow-[0_8px_40px_rgba(180,140,60,0.35)]"
-        style={{ width: 340, height: 280 }}
+        style={{ width: "min(94vw, 340px)", aspectRatio: "340 / 280" }}
       >
 
         {/* Card content (revealed layer) */}

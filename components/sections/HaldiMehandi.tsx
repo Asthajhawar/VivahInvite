@@ -156,7 +156,7 @@ export function HaldiMehandi() {
         alt=""
         fill
         className="-z-10 object-cover"
-        style={{ top: "-16px" }}
+        style={{ top: "-2.2%" }}
       />
       <div
         className="absolute -z-10"
