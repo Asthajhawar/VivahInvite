@@ -60,31 +60,16 @@ export function ShrinathjiHero() {
         fill
         className="object-cover"
       />
-      <div ref={gardenRef} className="absolute inset-0">
-        <Image
-          src="/images/shrinathji/garden.png"
-          alt=""
-          fill
-          className="object-cover"
-        />
-      </div>
-      <div ref={cowLeftRef} className="absolute inset-0">
-        <Image
-          src="/images/shrinathji/left-cow.png"
-          alt=""
-          fill
-          className="object-contain"
-        />
-      </div>
-      <div ref={cowRightRef} className="absolute inset-0">
-        <Image
-          src="/images/shrinathji/right-cow.png"
-          alt=""
-          fill
-          className="object-contain"
-        />
-      </div>
-      <div ref={archRef} className="absolute inset-0">
+      <div
+        ref={archRef}
+        className="absolute inset-0"
+        style={{
+          height: "114%",
+          width: "162%",
+          left: "-30.5%",
+          top: "-19%",
+        }}
+      >
         <Image
           src="/images/shrinathji/pillar.png"
           alt=""
@@ -92,6 +77,44 @@ export function ShrinathjiHero() {
           className="object-contain"
         />
       </div>
+      <div
+        ref={gardenRef}
+        className="absolute"
+        style={{ height: "110%", width: "104%", left: 0, top: 0 }}
+      >
+        <Image
+          src="/images/shrinathji/garden.png"
+          alt=""
+          fill
+          className="object-cover"
+          style={{ filter: "blur(1px)" }}
+        />
+      </div>
+      <div
+        ref={cowLeftRef}
+        className="absolute"
+        style={{ height: "181%", width: "52%", left: 0, top: 0 }}
+      >
+        <Image
+          src="/images/shrinathji/left-cow.png"
+          alt=""
+          fill
+          className="object-contain"
+        />
+      </div>
+      <div
+        ref={cowRightRef}
+        className="absolute"
+        style={{ height: "181%", width: "51%", left: "178px", top: 0 }}
+      >
+        <Image
+          src="/images/shrinathji/right-cow.png"
+          alt=""
+          fill
+          className="object-contain"
+        />
+      </div>
+
       <div ref={deityRef} className="absolute inset-0">
         <Image
           src="/images/shrinathji/shrinathji.png"

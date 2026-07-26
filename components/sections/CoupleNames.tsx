@@ -62,7 +62,7 @@ export function CoupleNames() {
         fill
         className="object-cover"
       />
-      <div ref={leavesRef} className="absolute inset-0">
+      <div ref={leavesRef} className="absolute inset-x-0 bottom-0 top-[250px]">
         <Image
           src="/images/couple/leaves.png"
           alt=""
@@ -70,7 +70,17 @@ export function CoupleNames() {
           className="object-cover"
         />
       </div>
-      <div ref={mandapRef} className="absolute inset-0">
+      <div
+        ref={mandapRef}
+        className="absolute"
+        style={{
+          height: "141%",
+          width: "76%",
+          left: "45px",
+          top: 0,
+          bottom: 0,
+        }}
+      >
         <Image
           src="/images/couple/mandap.png"
           alt=""
@@ -78,7 +88,17 @@ export function CoupleNames() {
           className="object-contain"
         />
       </div>
-      <div ref={peacockRef} className="absolute inset-0">
+      <div
+        ref={peacockRef}
+        className="absolute"
+        style={{
+          height: "171%",
+          width: "41%",
+          left: "77px",
+          top: 0,
+          bottom: 0,
+        }}
+      >
         <Image
           src="/images/couple/peacock.png"
           alt=""
@@ -89,7 +109,7 @@ export function CoupleNames() {
 
       <div
         ref={textRef}
-        className="absolute left-1/2 top-1/2 z-30 -translate-x-1/2 -translate-y-1/2 px-4 text-center"
+        className="absolute left-1/2 top-[27%] z-30 -translate-x-1/2 -translate-y-1/2 px-4 text-center"
       >
         <p className="reveal-line text-xs tracking-wide text-[#1b2a4a] sm:text-sm">
           We cordially invite you to the

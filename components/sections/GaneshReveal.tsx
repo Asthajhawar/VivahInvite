@@ -31,23 +31,26 @@ export function GaneshReveal() {
         },
       });
 
-      // Ganesh enters at scale ~5 (matching HeroArch exit) and zooms back to 1.
-      // transformOrigin mirrors HeroArch so it feels continuous.
+      // Ganesh enters at scale ~5 (matching HeroArch exit) and settles
+      // at scale 1.65 -- confirmed resting size from DevTools.
       tl.fromTo(
         ganeshRef.current,
         { scale: 5, transformOrigin: "50% 42%" },
-        { scale: 1, transformOrigin: "50% 50%", ease: "none", duration: 1 }
+        { scale: 1.65, transformOrigin: "50% 50%", ease: "none", duration: 1 }
       );
 
-      // Flowers and text all animate in during the same zoom-out window.
-      tl.from(
+      // Flowers slide in AND grow to their confirmed resting scale
+      // (206% for flower A, 183% for flower B) during the same window.
+      tl.fromTo(
         flowerARef.current,
-        { opacity: 0, x: -60, y: -60, ease: "none", duration: 1 },
-        "<" // starts at the same time as the zoom-out
+        { opacity: 0, x: -60, y: -60, scale: 1 },
+        { opacity: 1, x: 0, y: 0, scale: 2.06, ease: "none", duration: 1 },
+        "<" // starts at the same time as the ganesh zoom-out
       )
-        .from(
+        .fromTo(
           flowerBRef.current,
-          { opacity: 0, x: 60, y: 60, ease: "none", duration: 1 },
+          { opacity: 0, x: 60, y: 60, scale: 1 },
+          { opacity: 1, x: 0, y: 0, scale: 1.83, ease: "none", duration: 1 },
           "<"
         )
         // Text appears only after Ganesh has fully settled at its resting position
@@ -92,22 +95,31 @@ export function GaneshReveal() {
         fill
         className="object-cover"
       />
+      {/* Bigger base font size, no longer relying on a scale trick.
+          clamp(min, preferred, max) means: never smaller than the first
+          value, never bigger than the last, and grows smoothly with
+          viewport width in between -- so it scales on its own across
+          phone/tablet/desktop without you setting separate breakpoints. */}
       <p
         ref={textTopRef}
-        className="absolute left-1/2 top-24 z-30 -translate-x-1/2 font-devanagari text-2xl text-[#800020]"
+        className="absolute left-[49%] top-32 z-30 -translate-x-1/2 whitespace-nowrap font-devanagari text-[clamp(1.75rem,1.4rem+2vw,3rem)] text-[#800020]"
       >
         ॐ श्री गणेशाय नमः॥
       </p>
 
+      {/* Container resized to match the confirmed resting frame
+          (height 87% / width 105%). Actual growth still comes from
+          the scale animation above, ending at 1.65. */}
       <div
         ref={ganeshRef}
-        className="absolute left-1/2 top-1/2 z-10 h-[75%] w-[75%] -translate-x-1/2 -translate-y-1/2"
+        className="absolute left-1/2 top-[42%] z-10 h-[87%] w-[105%] -translate-x-1/2 -translate-y-1/2"
       >
         <Image
           src="/images/ganesh/ganeshji.png"
           alt="Lord Ganesh"
           fill
-          className="object-contain"
+          className="object-contain scale-[0.85]"
+          style={{ left: "8px" }}
         />
       </div>
 
@@ -121,7 +133,7 @@ export function GaneshReveal() {
       </div>
       <div
         ref={flowerBRef}
-        className="absolute bottom-0 right-0 z-20 h-56 w-40"
+        className="absolute -bottom-[76px] -right-6 z-20 h-60 w-40"
       >
         <Image
           src="/images/ganesh/intro_flower_frame_3.png"
@@ -131,9 +143,11 @@ export function GaneshReveal() {
         />
       </div>
 
+      {/* 20px base (text-xl = 20px), bold added, and same clamp()
+          responsive scaling as the top text. */}
       <p
         ref={textBottomRef}
-        className="absolute bottom-32 left-1/2 z-30 -translate-x-1/2 text-center font-devanagari text-xl leading-relaxed text-[#800020]"
+        className="absolute bottom-32 left-1/2 z-30 -translate-x-1/2 text-center font-devanagari font-bold leading-relaxed text-[clamp(1.25rem,1rem+1.2vw,1.75rem)] text-[#800020]"
       >
         वक्रतुण्ड महाकाय सूर्यकोटि समप्रभ।
         <br />
