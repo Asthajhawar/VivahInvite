@@ -106,6 +106,7 @@ export function ShrinathjiHero() {
   const archRef = useRef<HTMLDivElement>(null);
   const deityRef = useRef<HTMLDivElement>(null);
   const glimmerRef = useRef<HTMLDivElement>(null);
+  const omRef = useRef<HTMLDivElement>(null);
 
   useGSAP(
     () => {
@@ -120,7 +121,9 @@ export function ShrinathjiHero() {
             anticipatePin: 1,
           },
         })
-        .from(gardenRef.current, { opacity: 0, y: 60 })
+        // Fade Om symbol down as the first scene layers appear
+        .to(omRef.current, { opacity: 0.13, ease: "power1.inOut" })
+        .from(gardenRef.current, { opacity: 0, y: 60 }, "<")
         .from(cowLeftRef.current, { opacity: 0, x: -80 }, "<")
         .from(cowRightRef.current, { opacity: 0, x: 80 }, "<")
         .from(archRef.current, { opacity: 0, scale: 1.08 }, "+=0.1")
@@ -153,6 +156,28 @@ export function ShrinathjiHero() {
         fill
         className="object-cover"
       />
+      {/* Om symbol overlay — full opacity on entry, fades as scene layers appear */}
+      <div
+        className="pointer-events-none absolute inset-0 z-[1] flex items-center justify-center"
+      >
+        <div
+          ref={omRef}
+          style={{
+            position: "relative",
+            width: "70%",
+            maxWidth: 420,
+            aspectRatio: "1 / 1",
+            opacity: 1,
+          }}
+        >
+          <Image
+            src="/images/couple/om symbol.png"
+            alt="Om"
+            fill
+            className="object-contain"
+          />
+        </div>
+      </div>
       <div
         ref={archRef}
         className="absolute inset-0"

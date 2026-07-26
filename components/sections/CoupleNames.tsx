@@ -14,9 +14,9 @@ interface CoupleInfo {
 
 const COUPLE: CoupleInfo = {
   brideName: "Astha",
-  brideParentage: "D/O Mr. Giriraj & Mrs. Jyoti",
+  brideParentage: "D/O Mrs. Jyoti & Mr. Giriraj Jhawar",
   groomName: "Saksham",
-  groomParentage: "S/O Mr. Rajesh & Mrs. Shewta",
+  groomParentage: "S/O Mrs. Shewta & Mr. Rajeev Kumar",
 };
 
 export function CoupleNames() {
@@ -25,6 +25,7 @@ export function CoupleNames() {
   const mandapRef = useRef<HTMLDivElement>(null);
   const peacockRef = useRef<HTMLDivElement>(null);
   const textRef = useRef<HTMLDivElement>(null);
+  const omRef = useRef<HTMLDivElement>(null);
 
   useGSAP(
     () => {
@@ -38,7 +39,9 @@ export function CoupleNames() {
             pin: true,
           },
         })
-        .from(leavesRef.current, { opacity: 0, y: 50 })
+        // Fade Om down as the first scene layers appear
+        .to(omRef.current, { opacity: 0.13, ease: "power1.inOut" })
+        .from(leavesRef.current, { opacity: 0, y: 50 }, "<")
         .from(mandapRef.current, { opacity: 0, scale: 0.95 }, "+=0.1")
         .from(peacockRef.current, { opacity: 0, x: 40 }, "+=0.1")
         .from(
@@ -62,6 +65,28 @@ export function CoupleNames() {
         fill
         className="object-cover"
       />
+      {/* Om symbol overlay — full opacity on entry, fades as scene layers appear */}
+      <div
+        className="pointer-events-none absolute inset-0 z-[1] flex items-center justify-center"
+      >
+        <div
+          ref={omRef}
+          style={{
+            position: "relative",
+            width: "70%",
+            maxWidth: 420,
+            aspectRatio: "1 / 1",
+            opacity: 1,
+          }}
+        >
+          <Image
+            src="/images/couple/om symbol.png"
+            alt="Om"
+            fill
+            className="object-contain"
+          />
+        </div>
+      </div>
       <div ref={leavesRef} className="absolute inset-x-0 bottom-0 top-[250px]">
         <Image
           src="/images/couple/leaves.png"
