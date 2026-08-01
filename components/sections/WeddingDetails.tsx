@@ -22,8 +22,7 @@ export function WeddingDetails() {
         scrollTrigger: {
           trigger: sectionRef.current,
           start: "top 85%",
-          toggleActions: "play none none none",
-          once: true,
+          toggleActions: "play none none reverse",
         },
       });
 

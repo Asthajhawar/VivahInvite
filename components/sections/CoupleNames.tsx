@@ -33,23 +33,22 @@ export function CoupleNames() {
         .timeline({
           scrollTrigger: {
             trigger: sectionRef.current,
-            start: "top top",
-            end: "+=250%",
-            scrub: 1,
-            pin: true,
+            start: "top 85%",
+            toggleActions: "play none none reverse",
           },
         })
         // Fade Om down as the first scene layers appear
-        .to(omRef.current, { opacity: 0.13, ease: "power1.inOut" })
-        .from(leavesRef.current, { opacity: 0, y: 50 }, "<")
-        .from(mandapRef.current, { opacity: 0, scale: 0.95 }, "+=0.1")
-        .from(peacockRef.current, { opacity: 0, x: 40 }, "+=0.1")
+        .to(omRef.current, { opacity: 0.13, duration: 0.7, ease: "power1.inOut" })
+        .from(leavesRef.current, { opacity: 0, y: 50, duration: 0.7 }, "<")
+        .from(mandapRef.current, { opacity: 0, scale: 0.95, duration: 0.8 }, "+=0.1")
+        .from(peacockRef.current, { opacity: 0, x: 40, duration: 0.8 }, "+=0.1")
         .from(
           textRef.current!.querySelectorAll(".reveal-line"),
           {
             opacity: 0,
             y: 10,
             stagger: 0.12,
+            duration: 0.6,
           },
           "+=0.1"
         );

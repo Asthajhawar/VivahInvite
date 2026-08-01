@@ -114,20 +114,17 @@ export function ShrinathjiHero() {
         .timeline({
           scrollTrigger: {
             trigger: sectionRef.current,
-            start: "top top",
-            end: "+=300%",
-            scrub: 1,
-            pin: true,
-            anticipatePin: 1,
+            start: "top 85%",
+            toggleActions: "play none none reverse",
           },
         })
         // Fade Om symbol down as the first scene layers appear
-        .to(omRef.current, { opacity: 0.13, ease: "power1.inOut" })
-        .from(gardenRef.current, { opacity: 0, y: 60 }, "<")
-        .from(cowLeftRef.current, { opacity: 0, x: -80 }, "<")
-        .from(cowRightRef.current, { opacity: 0, x: 80 }, "<")
-        .from(archRef.current, { opacity: 0, scale: 1.08 }, "+=0.1")
-        .from(deityRef.current, { opacity: 0, y: 40, scale: 0.96 }, "+=0.1");
+        .to(omRef.current, { opacity: 0.13, duration: 0.7, ease: "power1.inOut" })
+        .from(gardenRef.current, { opacity: 0, y: 60, duration: 0.7 }, "<")
+        .from(cowLeftRef.current, { opacity: 0, x: -80, duration: 0.7 }, "<")
+        .from(cowRightRef.current, { opacity: 0, x: 80, duration: 0.7 }, "<")
+        .from(archRef.current, { opacity: 0, scale: 1.08, duration: 0.8 }, "+=0.1")
+        .from(deityRef.current, { opacity: 0, y: 40, scale: 0.96, duration: 0.9 }, "+=0.1");
     },
     { scope: sectionRef }
   );

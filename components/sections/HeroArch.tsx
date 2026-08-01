@@ -19,14 +19,14 @@ export function HeroArch() {
         scrollTrigger: {
           trigger: sectionRef.current,
           start: "top top",
-          end: "+=150%",
+          end: "+=80%",
           scrub: true,
           pin: true,
         },
       });
 
       tl.to(archRef.current, {
-        scale: 5,
+        scale: 3,
         transformOrigin: "50% 42%",
         ease: "none",
       })

@@ -24,10 +24,8 @@ export function GaneshReveal() {
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: sectionRef.current,
-          start: "top top",
-          end: "+=250%",
-          scrub: true,
-          pin: true,
+          start: "top 95%",
+          toggleActions: "play none none reverse",
         },
       });
 
@@ -36,7 +34,7 @@ export function GaneshReveal() {
       tl.fromTo(
         ganeshRef.current,
         { scale: 5, transformOrigin: "50% 42%" },
-        { scale: 1.65, transformOrigin: "50% 50%", ease: "none", duration: 1 }
+        { scale: 1.65, transformOrigin: "50% 50%", ease: "power2.out", duration: 1 }
       );
 
       // Flowers slide in AND grow to their confirmed resting scale
@@ -44,24 +42,24 @@ export function GaneshReveal() {
       tl.fromTo(
         flowerARef.current,
         { opacity: 0, x: -60, y: -60, scale: 1 },
-        { opacity: 1, x: 0, y: 0, scale: 2.06, ease: "none", duration: 1 },
+        { opacity: 1, x: 0, y: 0, scale: 2.06, ease: "power2.out", duration: 1 },
         "<" // starts at the same time as the ganesh zoom-out
       )
         .fromTo(
           flowerBRef.current,
           { opacity: 0, x: 60, y: 60, scale: 1 },
-          { opacity: 1, x: 0, y: 0, scale: 1.83, ease: "none", duration: 1 },
+          { opacity: 1, x: 0, y: 0, scale: 1.83, ease: "power2.out", duration: 1 },
           "<"
         )
         // Text appears only after Ganesh has fully settled at its resting position
         .from(
           textTopRef.current,
-          { opacity: 0, y: 20, ease: "none", duration: 0.6 },
+          { opacity: 0, y: 20, ease: "power1.out", duration: 0.6 },
           ">" // starts after zoom-out ends
         )
         .from(
           textBottomRef.current,
-          { opacity: 0, y: 20, ease: "none", duration: 0.6 },
+          { opacity: 0, y: 20, ease: "power1.out", duration: 0.6 },
           "<0.1"
         )
         // Hold everything fully visible so the user can read before unpinning
