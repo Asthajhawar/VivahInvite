@@ -15,13 +15,13 @@ export const metadata: Metadata = {
     title: "Astha & Saksham",
     description: "Join us in celebrating our wedding",
     url: "https://vivah-invite.vercel.app/",
-    // images: [
-    //   {
-    //     url: "https://vivah-invite.vercel.app/og-image.png",
-    //     width: 1200,
-    //     height: 630,
-    //   },
-    // ],
+    images: [
+      {
+        url: "https://vivah-invite.vercel.app/invite1.png",
+        width: 1200,
+        height: 630,
+      },
+    ],
   },
 };
 
