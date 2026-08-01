@@ -11,6 +11,18 @@ export const metadata: Metadata = {
     shortcut: "/favicon.svg",
     apple: "/favicon.svg",
   },
+  openGraph: {
+    title: "Astha & Saksham",
+    description: "Join us in celebrating our wedding",
+    url: "https://vivah-invite.vercel.app/",
+    images: [
+      {
+        url: "https://vivah-invite.vercel.app/og-image.png",
+        width: 1200,
+        height: 630,
+      },
+    ],
+  },
 };
 
 export default function RootLayout({
