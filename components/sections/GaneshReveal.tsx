@@ -1,12 +1,9 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
 import Image from "next/image";
 import { useGSAP } from "@gsap/react";
 import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-
-gsap.registerPlugin(ScrollTrigger);
 
 export function GaneshReveal() {
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -15,19 +12,18 @@ export function GaneshReveal() {
   const flowerBRef = useRef<HTMLDivElement>(null);
   const textTopRef = useRef<HTMLParagraphElement>(null);
   const textBottomRef = useRef<HTMLParagraphElement>(null);
+  // Holds the timeline so IntersectionObserver can play it after mount.
+  const tlRef = useRef<gsap.core.Timeline | null>(null);
 
   useGSAP(
     () => {
-      // ── Phase 1: Ganesh starts super-zoomed-in (matching the end state
-      //    of HeroArch's arch zoom), then zooms OUT to its resting size.
-      //    All other elements fade/slide in in parallel during this zoom-out.
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: "top 95%",
-          toggleActions: "play none none reverse",
-        },
-      });
+      // ── Timeline is built PAUSED. IntersectionObserver (below) will play
+      //    it the moment the section becomes visible after HeroArch's pin
+      //    releases. We avoid ScrollTrigger here because HeroArch's pin
+      //    spacer shifts GaneshReveal's document position at runtime, making
+      //    scroll-position-based triggers fire at the wrong time.
+      const tl = gsap.timeline({ paused: true });
+      tlRef.current = tl;
 
       // Ganesh enters at scale ~5 (matching HeroArch exit) and settles
       // at scale 1.65 -- confirmed resting size from DevTools.
@@ -84,6 +80,20 @@ export function GaneshReveal() {
     },
     { scope: sectionRef }
   );
+
+  // Play the timeline when HeroArch dispatches 'ganesh:play' (its onLeave
+  // callback fires exactly when the zoom scrub finishes and the pin releases).
+  // Using a window event instead of IntersectionObserver because during
+  // HeroArch's pin phase, GaneshReveal is technically in the viewport
+  // (scrolling behind the fixed HeroArch) -- IntersectionObserver would
+  // fire too early, before the user can actually see the section.
+  useEffect(() => {
+    const handler = () => {
+      if (tlRef.current) tlRef.current.play();
+    };
+    window.addEventListener("ganesh:play", handler);
+    return () => window.removeEventListener("ganesh:play", handler);
+  }, []);
 
   return (
     <section ref={sectionRef} className="relative h-[100dvh] overflow-hidden">
