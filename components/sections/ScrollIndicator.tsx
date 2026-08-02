@@ -49,6 +49,7 @@ export function ScrollIndicator() {
             src="/images/hero/scroll-down-2.png"
             alt=""
             fill
+            priority
             className="scroll-frame-shadow"
           />
           <span className="absolute inset-0 flex items-center justify-center font-serif italic text-base font-medium leading-none tracking-widest text-[#7a5a1a] drop-shadow-sm">
