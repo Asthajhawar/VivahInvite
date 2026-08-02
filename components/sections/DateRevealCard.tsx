@@ -146,6 +146,14 @@ export function DateRevealCard() {
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
+    // Ensure Google Fonts are ready before drawing canvas text
+    const serifPx   = Math.round(canvas.clientWidth * 0.075);
+    const scriptPx  = Math.round(canvas.clientWidth * 0.052);
+    Promise.all([
+      document.fonts.load(`italic bold ${serifPx}px 'Cormorant Garamond'`),
+      document.fonts.load(`${scriptPx}px 'Pinyon Script'`),
+    ]).catch(() => {}); // non-blocking — fallback to Georgia if not ready
+
     const dpr = window.devicePixelRatio || 1;
     const W = canvas.clientWidth;
     const H = canvas.clientHeight;
@@ -201,24 +209,25 @@ export function DateRevealCard() {
     ctx.textBaseline = "middle";
 
     // Drop shadow for main heading
-    ctx.shadowColor = "rgba(0,0,0,0.35)";
-    ctx.shadowBlur = 4;
+    const headingFont = `italic bold ${Math.round(W * 0.075)}px 'Cormorant Garamond', 'Georgia', serif`;
+    ctx.shadowColor = "rgba(0,0,0,0.4)";
+    ctx.shadowBlur = 5;
     ctx.shadowOffsetY = 2;
-    ctx.font = `bold ${Math.round(W * 0.075)}px 'Georgia', serif`;
-    ctx.fillStyle = "rgba(255,255,255,0.15)";
-    ctx.fillText("SCRATCH TO REVEAL", cx + 1, cy - 9);
+    ctx.font = headingFont;
+    ctx.fillStyle = "rgba(255,255,255,0.18)";
+    ctx.fillText("Scratch to Reveal", cx + 1, cy - 9);
 
     // Main heading
     ctx.shadowBlur = 0;
     ctx.shadowOffsetY = 0;
-    ctx.font = `bold ${Math.round(W * 0.075)}px 'Georgia', serif`;
+    ctx.font = headingFont;
     ctx.fillStyle = "#ffffff";
-    ctx.fillText("SCRATCH TO REVEAL", cx, cy - 10);
+    ctx.fillText("Scratch to Reveal", cx, cy - 10);
 
-    // Sub-text: our special day
-    ctx.font = `italic ${Math.round(W * 0.048)}px 'Georgia', serif`;
-    ctx.fillStyle = "rgba(255,255,255,0.82)";
-    ctx.fillText("our special day", cx, cy + 14);
+    // Sub-text: our special day — Pinyon Script
+    ctx.font = `${Math.round(W * 0.052)}px 'Pinyon Script', cursive`;
+    ctx.fillStyle = "rgba(255,255,255,0.88)";
+    ctx.fillText("our special day", cx, cy + 16);
 
     // Sparkle dots around text
     const sparkles = [
@@ -309,26 +318,23 @@ export function DateRevealCard() {
         {/* Card content (revealed layer) */}
         <div className="relative z-10 flex h-full flex-col items-center justify-center gap-1 px-4 text-center">
           <p
-            className="text-[10px] font-semibold tracking-[0.25em] text-[#8b6914]"
-            style={{ fontFamily: "'Georgia', serif" }}
+            className="font-serif text-[10px] font-semibold tracking-[0.25em] text-[#8b6914]"
           >
             ✦ SAVE THE DATE ✦
           </p>
           <p
-            className="mt-1 text-[11px] tracking-[0.15em] text-[#a07820]"
-            style={{ fontFamily: "'Georgia', serif" }}
+            className="font-serif mt-1 text-[11px] tracking-[0.15em] text-[#a07820]"
           >
-            WITH JOY WE INVITE YOU TO CELEBRATE
+            With Joy We Invite You
           </p>
           <p
-            className="my-1 text-3xl font-bold text-[#800020]"
-            style={{ fontFamily: "'Georgia', serif", letterSpacing: "0.02em" }}
+            className="font-script my-1 text-4xl text-[#800020]"
+            style={{ letterSpacing: "0.01em" }}
           >
             26th November 2026
           </p>
           <p
-            className="text-[10px] tracking-widest text-[#5a4010]"
-            style={{ fontFamily: "'Georgia', serif" }}
+            className="font-serif text-[10px] tracking-widest text-[#5a4010]"
           >
             {WEDDING_LOCATION.toUpperCase()}
           </p>
@@ -338,12 +344,11 @@ export function DateRevealCard() {
               {(["days", "hours", "minutes", "seconds"] as const).map((unit) => (
                 <div key={unit} className="flex flex-col items-center">
                   <span
-                    className="text-xl font-bold text-[#800020]"
-                    style={{ fontFamily: "'Georgia', serif" }}
+                    className="font-serif text-xl font-bold text-[#800020]"
                   >
                     {String(countdown[unit]).padStart(unit === "days" ? 3 : 2, "0")}
                   </span>
-                  <span className="text-[9px] uppercase tracking-widest text-[#8b6914]">
+                  <span className="font-serif text-[9px] uppercase tracking-widest text-[#8b6914]">
                     {unit}
                   </span>
                 </div>
@@ -380,13 +385,57 @@ export function DateRevealCard() {
         {/* Revealed badge */}
         {revealed && (
           <p
-            className="absolute bottom-2 left-1/2 z-50 -translate-x-1/2 text-[9px] tracking-widest text-[#8b6914]"
-            style={{ fontFamily: "'Georgia', serif" }}
+            className="font-serif absolute bottom-2 left-1/2 z-50 -translate-x-1/2 text-[9px] tracking-widest text-[#8b6914]"
           >
             ✦ DATE REVEALED ✦
           </p>
         )}
       </div>
+
+      {/* Scratch hint — hidden once revealed */}
+      {!revealed && (
+        <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex flex-col items-center gap-0.5 pointer-events-none">
+          {/* Finger swipe icon */}
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 32 32"
+            fill="none"
+            className="w-7 h-7"
+            style={{ animation: "scratch-hint-finger 1.6s ease-in-out infinite" }}
+          >
+            {/* Finger body */}
+            <path
+              d="M16 6 C14 6 13 7.5 13 9 L13 18 C11.5 17 9.5 17.5 9 19 C8.5 20.5 9.5 22 11 23 L16 27 C18.5 28.5 22 27 22 24 L22 14 C22 12.5 21 11 19.5 11 C19 11 18.5 11.2 18 11.5 L18 9 C18 7.5 17 6 16 6 Z"
+              fill="#c9a24b"
+              opacity="0.9"
+            />
+            {/* Swipe lines */}
+            <path d="M5 14 L9 14" stroke="#c9a24b" strokeWidth="1.5" strokeLinecap="round" opacity="0.5" />
+            <path d="M4 17 L8 17" stroke="#c9a24b" strokeWidth="1.5" strokeLinecap="round" opacity="0.35" />
+            <path d="M5 20 L9 20" stroke="#c9a24b" strokeWidth="1.5" strokeLinecap="round" opacity="0.2" />
+          </svg>
+
+          {/* Label */}
+          <span
+            className="font-serif italic text-[10px] text-[#c9a24b] tracking-widest"
+            style={{ animation: "scratch-hint-fade 1.6s ease-in-out infinite" }}
+          >
+            scratch to reveal
+          </span>
+        </div>
+      )}
+
+      <style>{`
+        @keyframes scratch-hint-finger {
+          0%, 100% { transform: translateX(0) rotate(-10deg); opacity: 0.6; }
+          40%       { transform: translateX(8px) rotate(5deg); opacity: 1; }
+          70%       { transform: translateX(-4px) rotate(-5deg); opacity: 0.8; }
+        }
+        @keyframes scratch-hint-fade {
+          0%, 100% { opacity: 0.4; }
+          50%       { opacity: 1; }
+        }
+      `}</style>
     </section>
   );
 }

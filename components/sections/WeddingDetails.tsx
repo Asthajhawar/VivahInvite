@@ -120,8 +120,8 @@ export function WeddingDetails() {
         className="relative z-10 mx-auto max-w-md text-center"
         style={{ top: "clamp(-110px, -12.3vh, -60px)" }}
       >
-        <h2 className="font-serif text-2xl text-[#1b2a4a]">Wedding Venue</h2>
-        <p className="mt-1 font-serif text-lg text-[#800020]">{VENUE_NAME}</p>
+        <h2 className="font-serif text-xs font-semibold uppercase tracking-[0.25em] text-[#6b7a3a]">Wedding Venue</h2>
+        <p className="mt-1 font-serif italic text-4xl font-medium text-[#800020] sm:text-5xl">{VENUE_NAME}</p>
         <p className="text-sm text-[#6b7a3a]">{VENUE_ADDRESS}</p>
 
         <button
@@ -135,9 +135,29 @@ export function WeddingDetails() {
             height={450}
             className="w-full"
           />
-          <span className="absolute inset-x-0 bottom-0 bg-black/40 py-1 text-xs text-white">
-            Tap to view live map
+          <span className="absolute inset-x-0 bottom-0 flex items-center justify-center gap-1.5 bg-black/40 py-1.5">
+            {/* Tap / map-pin icon */}
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" className="w-3.5 h-3.5"
+              style={{ animation: "map-pin-pulse 1.4s ease-in-out infinite" }}>
+              <path d="M12 2C8.68 2 6 4.68 6 8c0 5.25 6 13 6 13s6-7.75 6-13c0-3.32-2.68-6-6-6z"
+                fill="#FFD700" opacity="0.9"/>
+              <circle cx="12" cy="8" r="2.2" fill="white" opacity="0.8"/>
+            </svg>
+            <span className="text-xs text-white font-serif italic tracking-wide"
+              style={{ animation: "map-label-fade 1.4s ease-in-out infinite" }}>
+              Tap to view live map
+            </span>
           </span>
+          <style>{`
+            @keyframes map-pin-pulse {
+              0%, 100% { transform: translateY(0) scale(1); opacity: 0.7; }
+              50%       { transform: translateY(-2px) scale(1.15); opacity: 1; }
+            }
+            @keyframes map-label-fade {
+              0%, 100% { opacity: 0.6; }
+              50%       { opacity: 1; }
+            }
+          `}</style>
         </button>
       </div>
 

@@ -173,7 +173,7 @@ export function HaldiMehandi() {
       <PetalDrift />
 
       <div className="relative z-10 mb-6 text-center">
-        <h2 className="font-serif text-3xl text-[#800020]">
+        <h2 className="font-script font-semibold text-5xl text-[#800020]">
           Events
         </h2>
         <p className="text-sm text-[#6b7a3a]">Swipe through the celebrations</p>

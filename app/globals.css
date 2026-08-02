@@ -39,6 +39,9 @@
   .font-serif {
     font-family: var(--font-serif), ui-serif, Georgia, serif;
   }
+  .font-script {
+    font-family: var(--font-script), cursive;
+  }
 }
 
 @layer utilities {

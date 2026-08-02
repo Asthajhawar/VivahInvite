@@ -140,21 +140,21 @@ export function CoupleNames() {
           <br />
           wedding ceremony of
         </p>
-        <p className="reveal-line mt-2 font-serif text-3xl text-[#800020] sm:text-4xl">
+        <p className="reveal-line mt-2 font-serif italic tracking-wide text-5xl font-medium text-[#800020] capitalize first-letter:text-7xl sm:text-6xl sm:first-letter:text-8xl">
           {COUPLE.brideName}
         </p>
-        <p className="reveal-line text-[10px] text-[#6b7a3a] sm:text-xs">
+        <p className="reveal-line text-xs text-[#6b7a3a] sm:text-sm">
           {COUPLE.brideParentage}
         </p>
         <div className="reveal-line my-3 flex items-center justify-center gap-3">
           <span className="h-px w-10 bg-[#c9a24b]" />
-          <span className="font-serif italic text-[#c9a24b]">Weds</span>
+          <span className="font-script italic text-2xl text-[#c9a24b]">Weds</span>
           <span className="h-px w-10 bg-[#c9a24b]" />
         </div>
-        <p className="reveal-line font-serif text-3xl text-[#800020] sm:text-4xl">
+        <p className="reveal-line font-serif italic tracking-wide text-5xl font-medium text-[#800020] capitalize first-letter:text-7xl sm:text-6xl sm:first-letter:text-8xl">
           {COUPLE.groomName}
         </p>
-        <p className="reveal-line text-[10px] text-[#6b7a3a] sm:text-xs">
+        <p className="reveal-line text-xs text-[#6b7a3a] sm:text-sm">
           {COUPLE.groomParentage}
         </p>
       </div>

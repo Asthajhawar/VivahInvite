@@ -217,6 +217,7 @@ export function HeroArch() {
           playsInline
           preload="auto"
           className="absolute inset-0 w-full h-full object-cover"
+          suppressHydrationWarning
         />
       </div>
 

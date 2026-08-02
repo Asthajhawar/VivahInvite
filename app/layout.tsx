@@ -1,9 +1,10 @@
 import "./globals.css";
 import type { Metadata } from "next";
 import { LenisProvider } from "@/components/LenisProvider";
-import { devanagariFont, serifFont } from "./fonts";
+import { devanagariFont, serifFont, scriptFont } from "./fonts";
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://vivah-invite.vercel.app"),
   title: "Astha & Saksham",
   description: "Wedding invitation — Astha weds Saksham",
   icons: {
@@ -33,7 +34,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${devanagariFont.variable} ${serifFont.variable}`}
+      className={`${devanagariFont.variable} ${serifFont.variable} ${scriptFont.variable}`}
     >
       <body className="bg-[#fff8ed] text-[#1b2a4a] antialiased">
         <LenisProvider>{children}</LenisProvider>
