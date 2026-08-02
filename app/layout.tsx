@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     url: "https://vivah-invite.vercel.app/",
     images: [
       {
-        url: "https://vivah-invite.vercel.app/invite1.png",
+        url: "https://vivah-invite.vercel.app/invite1.jpg",
         width: 1200,
         height: 630,
       },
