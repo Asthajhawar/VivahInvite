@@ -1,9 +1,11 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useEffect, useState } from "react";
 import Image from "next/image";
 import { useGSAP } from "@gsap/react";
 import { gsap } from "gsap";
+
+// ─── Types ────────────────────────────────────────────────────────────────────
 
 interface CoupleInfo {
   brideName: string;
@@ -12,6 +14,21 @@ interface CoupleInfo {
   groomParentage: string;
 }
 
+interface ImageStyle {
+  height: string;
+  width: string;
+  left: string;
+  top: string | number;
+}
+
+interface Breakpoint<T> {
+  /** minimum viewport width (px) this style applies from */
+  minWidth: number;
+  style: T;
+}
+
+// ─── Data ─────────────────────────────────────────────────────────────────────
+
 const COUPLE: CoupleInfo = {
   brideName: "Astha",
   brideParentage: "D/O Mrs. Jyoti & Mr. Giriraj Jhawar",
@@ -19,13 +36,57 @@ const COUPLE: CoupleInfo = {
   groomParentage: "S/O Mrs. Shewta & Mr. Rajeev Kumar",
 };
 
+/**
+ * Breakpoints are evaluated largest-first.
+ * To add a new device: insert a new { minWidth, style } entry — no other code changes needed.
+ */
+const MANDAP_BREAKPOINTS: Breakpoint<ImageStyle>[] = [
+  // >= 440 px  (e.g. Galaxy S24, Pixel 8)
+  { minWidth: 440, style: { height: "151%", width: "69%", left: "14.5%", top: "5px" } },
+  // >= 405 px  (e.g. iPhone 14 Pro, Pixel 7)
+  { minWidth: 405, style: { height: "149%", width: "73%", left: "12.5%", top: "5px" } },
+  // < 405 px   (default / smallest phones)
+  { minWidth: 0,   style: { height: "145%", width: "73%", left: "12.5%", top: "5px" } },
+];
+
+const PEACOCK_BREAKPOINTS: Breakpoint<ImageStyle>[] = [
+  // >= 440 px
+  { minWidth: 440, style: { height: "191%", width: "30%", left: "28.4%", top: "2px" } },
+  // >= 405 px
+  { minWidth: 405, style: { height: "189%", width: "39%", left: "22.4%", top: "3px" } },
+  // < 405 px
+  { minWidth: 0,   style: { height: "183%", width: "41%", left: "20.4%", top: 0 } },
+];
+
+// ─── Helper ───────────────────────────────────────────────────────────────────
+
+/** Returns the style for the largest breakpoint that fits the current viewport width. */
+function resolveStyle<T>(breakpoints: Breakpoint<T>[], viewportWidth: number): T {
+  const sorted = [...breakpoints].sort((a, b) => b.minWidth - a.minWidth);
+  return (sorted.find((bp) => viewportWidth >= bp.minWidth) ?? sorted[sorted.length - 1]).style;
+}
+
+// ─── Component ────────────────────────────────────────────────────────────────
+
 export function CoupleNames() {
   const sectionRef = useRef<HTMLDivElement>(null);
-  const leavesRef = useRef<HTMLDivElement>(null);
-  const mandapRef = useRef<HTMLDivElement>(null);
+  const leavesRef  = useRef<HTMLDivElement>(null);
+  const mandapRef  = useRef<HTMLDivElement>(null);
   const peacockRef = useRef<HTMLDivElement>(null);
-  const textRef = useRef<HTMLDivElement>(null);
-  const omRef = useRef<HTMLDivElement>(null);
+  const textRef    = useRef<HTMLDivElement>(null);
+  const omRef      = useRef<HTMLDivElement>(null);
+
+  const [viewportWidth, setViewportWidth] = useState(0);
+
+  useEffect(() => {
+    const update = () => setViewportWidth(window.innerWidth);
+    update();
+    window.addEventListener("resize", update);
+    return () => window.removeEventListener("resize", update);
+  }, []);
+
+  const mandapStyle  = resolveStyle(MANDAP_BREAKPOINTS,  viewportWidth);
+  const peacockStyle = resolveStyle(PEACOCK_BREAKPOINTS, viewportWidth);
 
   useGSAP(
     () => {
@@ -97,13 +158,7 @@ export function CoupleNames() {
       <div
         ref={mandapRef}
         className="absolute"
-        style={{
-          height: "141%",
-          width: "76%",
-          left: "12.5%",
-          top: 0,
-          bottom: 0,
-        }}
+        style={{ ...mandapStyle, bottom: 0 }}
       >
         <Image
           src="/images/couple/mandap.png"
@@ -115,13 +170,7 @@ export function CoupleNames() {
       <div
         ref={peacockRef}
         className="absolute"
-        style={{
-          height: "171%",
-          width: "41%",
-          left: "21.4%",
-          top: 0,
-          bottom: 0,
-        }}
+        style={{ ...peacockStyle, bottom: 0 }}
       >
         <Image
           src="/images/couple/peacock.png"
@@ -151,7 +200,7 @@ export function CoupleNames() {
           <span className="font-script italic text-2xl text-[#c9a24b]">Weds</span>
           <span className="h-px w-10 bg-[#c9a24b]" />
         </div>
-        <p className="reveal-line font-serif italic tracking-wide text-5xl font-medium text-[#800020] capitalize first-letter:text-7xl sm:text-6xl sm:first-letter:text-8xl">
+        <p className="reveal-line font-serif italic tracking-wide text-5xl font-medium text-[#800020] capitalize first-letter:text-7xl sm:text-6xl sm:first-letter:text-8xl -mt-5">
           {COUPLE.groomName}
         </p>
         <p className="reveal-line text-xs text-[#6b7a3a] sm:text-sm">

@@ -1,9 +1,69 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { useGSAP } from "@gsap/react";
 import { gsap } from "gsap";
+
+// ─── Types ────────────────────────────────────────────────────────────────────
+
+interface ImageStyle {
+  height: string;
+  width: string;
+  left: string | number;
+  top: string | number;
+  right?: string | number;
+  bottom?: string | number;
+}
+
+interface Breakpoint<T> {
+  /** minimum viewport width (px) this style applies from */
+  minWidth: number;
+  style: T;
+}
+
+// ─── Breakpoint configs ───────────────────────────────────────────────────────
+
+/**
+ * Breakpoints are evaluated largest-first.
+ * To add a new device: insert a new { minWidth, style } row — no other code changes needed.
+ */
+
+const ARCH_BREAKPOINTS: Breakpoint<ImageStyle>[] = [
+  // >= 405 px
+  { minWidth: 405, style: { height: "121%", width: "165%", left: "-32.5%", top: "-25%" } },
+  // < 405 px  (default)
+  { minWidth: 0,   style: { height: "114%", width: "162%", left: "-30.5%", top: "-19%" } },
+];
+
+const COW_LEFT_BREAKPOINTS: Breakpoint<ImageStyle>[] = [
+  // >= 405 px
+  { minWidth: 405, style: { height: "181%", width: "52%", left: "-6px", top: 0 } },
+  // < 405 px  (default)
+  { minWidth: 0,   style: { height: "181%", width: "52%", left: 0, top: 0 } },
+];
+
+const COW_RIGHT_BREAKPOINTS: Breakpoint<ImageStyle>[] = [
+  // >= 405 px
+  { minWidth: 405, style: { height: "181%", width: "51%", left: "51.4%", top: 0 } },
+  // < 405 px  (default)
+  { minWidth: 0,   style: { height: "181%", width: "51%", left: "49.4%", top: 0 } },
+];
+
+const DEITY_BREAKPOINTS: Breakpoint<ImageStyle>[] = [
+  // >= 405 px
+  { minWidth: 405, style: { height: "90%", width: "86%", left: "7%", top: "4%" } },
+  // < 405 px  (default — mirrors inset-0 behaviour)
+  { minWidth: 0,   style: { height: "100%", width: "100%", left: 0, top: 0 } },
+];
+
+// ─── Helper ───────────────────────────────────────────────────────────────────
+
+/** Returns the style for the largest breakpoint that fits the current viewport width. */
+function resolveStyle<T>(breakpoints: Breakpoint<T>[], viewportWidth: number): T {
+  const sorted = [...breakpoints].sort((a, b) => b.minWidth - a.minWidth);
+  return (sorted.find((bp) => viewportWidth >= bp.minWidth) ?? sorted[sorted.length - 1]).style;
+}
 
 // ── Realistic SVG petal drift (rose, marigold, frangipani, jasmine) ────────
 function PetalDrift() {
@@ -98,15 +158,31 @@ function PetalDrift() {
   );
 }
 
+// ─── Component ────────────────────────────────────────────────────────────────
+
 export function ShrinathjiHero() {
-  const sectionRef = useRef<HTMLDivElement>(null);
-  const gardenRef = useRef<HTMLDivElement>(null);
-  const cowLeftRef = useRef<HTMLDivElement>(null);
+  const sectionRef  = useRef<HTMLDivElement>(null);
+  const gardenRef   = useRef<HTMLDivElement>(null);
+  const cowLeftRef  = useRef<HTMLDivElement>(null);
   const cowRightRef = useRef<HTMLDivElement>(null);
-  const archRef = useRef<HTMLDivElement>(null);
-  const deityRef = useRef<HTMLDivElement>(null);
-  const glimmerRef = useRef<HTMLDivElement>(null);
-  const omRef = useRef<HTMLDivElement>(null);
+  const archRef     = useRef<HTMLDivElement>(null);
+  const deityRef    = useRef<HTMLDivElement>(null);
+  const glimmerRef  = useRef<HTMLDivElement>(null);
+  const omRef       = useRef<HTMLDivElement>(null);
+
+  const [viewportWidth, setViewportWidth] = useState(0);
+
+  useEffect(() => {
+    const update = () => setViewportWidth(window.innerWidth);
+    update();
+    window.addEventListener("resize", update);
+    return () => window.removeEventListener("resize", update);
+  }, []);
+
+  const archStyle     = resolveStyle(ARCH_BREAKPOINTS,      viewportWidth);
+  const cowLeftStyle  = resolveStyle(COW_LEFT_BREAKPOINTS,  viewportWidth);
+  const cowRightStyle = resolveStyle(COW_RIGHT_BREAKPOINTS, viewportWidth);
+  const deityStyle    = resolveStyle(DEITY_BREAKPOINTS,     viewportWidth);
 
   useGSAP(
     () => {
@@ -177,13 +253,8 @@ export function ShrinathjiHero() {
       </div>
       <div
         ref={archRef}
-        className="absolute inset-0"
-        style={{
-          height: "114%",
-          width: "162%",
-          left: "-30.5%",
-          top: "-19%",
-        }}
+        className="absolute"
+        style={archStyle}
       >
         <Image
           src="/images/shrinathji/pillar.png"
@@ -208,7 +279,7 @@ export function ShrinathjiHero() {
       <div
         ref={cowLeftRef}
         className="absolute"
-        style={{ height: "181%", width: "52%", left: 0, top: 0 }}
+        style={cowLeftStyle}
       >
         <Image
           src="/images/shrinathji/left-cow.png"
@@ -220,7 +291,7 @@ export function ShrinathjiHero() {
       <div
         ref={cowRightRef}
         className="absolute"
-        style={{ height: "181%", width: "51%", left: "49.4%", top: 0 }}
+        style={cowRightStyle}
       >
         <Image
           src="/images/shrinathji/right-cow.png"
@@ -230,7 +301,7 @@ export function ShrinathjiHero() {
         />
       </div>
 
-      <div ref={deityRef} className="absolute inset-0">
+      <div ref={deityRef} className="absolute" style={deityStyle}>
         <Image
           src="/images/shrinathji/shrinathji.png"
           alt="Shrinathji"

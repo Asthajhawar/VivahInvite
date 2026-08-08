@@ -13,15 +13,21 @@ interface WeddingEvent {
 const EVENTS: WeddingEvent[] = [
   {
     heading: "Haldi Ceremony",
-    date: "14 December 2026",
+    date: "25 November 2026",
     time: "10:00 AM – 12:00 PM",
     image: "/images/haldi-mehandi/event-haldi.jpeg",
   },
   {
     heading: "Mehandi Ceremony",
-    date: "14 December 2026",
+    date: "24 November 2026",
     time: "4:00 PM – 7:00 PM",
     image: "/images/haldi-mehandi/event-mehandi.jpeg",
+  },
+  {
+    heading: "Maayra Ceremony",
+    date: "25 November 2026",
+    time: "4:00 PM – 7:00 PM",
+    image: "/images/haldi-mehandi/event-maayra.png",
   },
 ];
 
