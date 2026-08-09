@@ -132,49 +132,105 @@ function PetalDrift() {
 }
 
 export function HaldiMehandi() {
-  const trackRef = useRef<HTMLDivElement>(null);
   const [activeIndex, setActiveIndex] = useState(0);
+  const carouselRef = useRef<HTMLDivElement>(null);
 
-  function onTrackScroll() {
-    const track = trackRef.current;
-    if (!track) return;
-    const first = track.children[0] as HTMLElement | undefined;
-    const cardWidth = first?.clientWidth ?? 1;
-    const gap = 16;
-    setActiveIndex(Math.round(track.scrollLeft / (cardWidth + gap)));
-  }
+  // ── Non-passive touch listeners so we can preventDefault for horizontal swipes ──
+  // React attaches synthetic events as passive by default, which blocks preventDefault.
+  // We must use native addEventListener with { passive: false } instead.
+  const touchStartX = useRef(0);
+  const touchStartY = useRef(0);
+  const gestureDir  = useRef<"h" | "v" | null>(null);
+  // Keep activeIndex accessible inside native listeners without stale closure
+  const activeIndexRef = useRef(0);
 
-  function scrollToCard(i: number) {
-    const card = trackRef.current?.children[i] as HTMLElement | undefined;
-    card?.scrollIntoView({ behavior: "smooth", inline: "center" });
+  // Sync activeIndex → ref
+  useEffect(() => { activeIndexRef.current = activeIndex; }, [activeIndex]);
+
+  useEffect(() => {
+    const el = carouselRef.current;
+    if (!el) return;
+
+    function handleStart(e: TouchEvent) {
+      touchStartX.current = e.touches[0].clientX;
+      touchStartY.current = e.touches[0].clientY;
+      gestureDir.current  = null;
+    }
+
+    function handleMove(e: TouchEvent) {
+      const dx = e.touches[0].clientX - touchStartX.current;
+      const dy = e.touches[0].clientY - touchStartY.current;
+      if (gestureDir.current === null && (Math.abs(dx) > 6 || Math.abs(dy) > 6)) {
+        gestureDir.current = Math.abs(dx) > Math.abs(dy) ? "h" : "v";
+      }
+      // Block page scroll only when swiping horizontally through cards
+      if (gestureDir.current === "h") e.preventDefault();
+    }
+
+    function handleEnd(e: TouchEvent) {
+      if (gestureDir.current !== "h") return;
+      const dx = e.changedTouches[0].clientX - touchStartX.current;
+      const THRESHOLD = 40;
+      setActiveIndex((cur) => {
+        if (dx < -THRESHOLD && cur < EVENTS.length - 1) return cur + 1;
+        if (dx >  THRESHOLD && cur > 0)                 return cur - 1;
+        return cur;
+      });
+      gestureDir.current = null;
+    }
+
+    el.addEventListener("touchstart", handleStart, { passive: true });
+    el.addEventListener("touchmove",  handleMove,  { passive: false }); // non-passive!
+    el.addEventListener("touchend",   handleEnd,   { passive: true });
+    return () => {
+      el.removeEventListener("touchstart", handleStart);
+      el.removeEventListener("touchmove",  handleMove);
+      el.removeEventListener("touchend",   handleEnd);
+    };
+  }, []);
+
+  function goToCard(i: number) {
+    setActiveIndex(i);
   }
 
   return (
-    <section className="relative overflow-hidden py-20">
-      <Image
-        src="/images/haldi-mehandi/background.png"
-        alt=""
-        fill
-        className="-z-10 object-cover"
-      />
-      <Image
-        src="/images/haldi-mehandi/decorations.png"
-        alt=""
-        fill
-        className="-z-10 object-cover"
-        style={{ top: "-2.2%" }}
-      />
+    <section
+      className="relative overflow-hidden py-20"
+      style={{ contain: "layout style" }}
+    >
+      {/* ── Stable background layer — isolated stacking context prevents repaint flicker ── */}
       <div
-        className="absolute -z-10"
-        style={{ height: "174%", width: "105%", left: 0, top: 0 }}
+        className="pointer-events-none absolute inset-0 -z-10"
+        style={{ willChange: "transform", contain: "strict" }}
       >
         <Image
-          src="/images/haldi-mehandi/ceremonial_objects.png"
+          src="/images/haldi-mehandi/background.png"
           alt=""
           fill
-          className="object-contain"
-          style={{ scale: "109%" }}
+          sizes="100vw"
+          className="object-cover"
         />
+        <Image
+          src="/images/haldi-mehandi/decorations.png"
+          alt=""
+          fill
+          sizes="100vw"
+          className="object-cover"
+          style={{ top: "-2.2%" }}
+        />
+        <div
+          className="absolute"
+          style={{ height: "174%", width: "105%", left: 0, top: 0 }}
+        >
+          <Image
+            src="/images/haldi-mehandi/ceremonial_objects.png"
+            alt=""
+            fill
+            sizes="105vw"
+            className="object-contain"
+            style={{ transform: "scale(1.09)", transformOrigin: "top left" }}
+          />
+        </div>
       </div>
       <PetalDrift />
 
@@ -185,36 +241,41 @@ export function HaldiMehandi() {
         <p className="text-sm text-[#6b7a3a]">Swipe through the celebrations</p>
       </div>
 
+      {/* ── Transform carousel — no native scroll container so vertical swipes reach the page ── */}
       <div
-        ref={trackRef}
-        onScroll={onTrackScroll}
-        data-lenis-prevent
-        className="no-scrollbar flex gap-4 overflow-x-auto px-5"
-        style={{ scrollSnapType: "x mandatory", touchAction: "pan-x" }}
+        ref={carouselRef}
+        className="relative overflow-hidden px-5"
       >
-        {EVENTS.map((event) => (
-          <article
-            key={event.heading}
-            className="flex-none basis-[85%] rounded-xl border border-[#c9a24b] bg-[#fff8ed] p-4 shadow-md md:basis-[45%]"
-            style={{ scrollSnapAlign: "center" }}
-          >
-            <div className="relative aspect-[4/5] overflow-hidden rounded-lg">
-              <Image
-                src={event.image}
-                alt={event.heading}
-                fill
-                className="object-cover"
-              />
-            </div>
-            <h3 className="mt-3 font-serif text-lg text-[#1b2a4a]">
-              {event.heading}
-            </h3>
-            <p className="mt-1 flex flex-wrap gap-4 text-sm text-[#6b7a3a]">
-              <span>{event.date}</span>
-              <span>{event.time}</span>
-            </p>
-          </article>
-        ))}
+        <div
+          className="flex gap-4 transition-transform duration-300 ease-out"
+          style={{
+            transform: `translateX(calc(${activeIndex * -85}% - ${activeIndex * 16}px))`,
+          }}
+        >
+          {EVENTS.map((event) => (
+            <article
+              key={event.heading}
+              className="flex-none basis-[85%] rounded-xl border border-[#c9a24b] bg-[#fff8ed] p-4 shadow-md md:basis-[45%]"
+            >
+              <div className="relative aspect-[4/5] overflow-hidden rounded-lg">
+                <Image
+                  src={event.image}
+                  alt={event.heading}
+                  fill
+                  sizes="85vw"
+                  className="object-cover"
+                />
+              </div>
+              <h3 className="mt-3 font-serif text-lg text-[#1b2a4a]">
+                {event.heading}
+              </h3>
+              <p className="mt-1 flex flex-wrap gap-4 text-sm text-[#6b7a3a]">
+                <span>{event.date}</span>
+                <span>{event.time}</span>
+              </p>
+            </article>
+          ))}
+        </div>
       </div>
 
       <div className="mt-4 flex justify-center gap-2">
@@ -222,7 +283,7 @@ export function HaldiMehandi() {
           <button
             key={event.heading}
             aria-label={`Go to ${event.heading}`}
-            onClick={() => scrollToCard(i)}
+            onClick={() => goToCard(i)}
             className={`h-2 w-2 rounded-full transition-colors ${
               i === activeIndex ? "bg-[#c9a24b]" : "bg-[#e3d3ad]"
             }`}
