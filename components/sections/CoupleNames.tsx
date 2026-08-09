@@ -14,6 +14,9 @@ interface CoupleInfo {
   groomParentage: string;
 }
 
+/** Controls whose name appears first in the couple section. */
+type Perspective = "bride" | "groom";
+
 interface ImageStyle {
   height: string;
   width: string;
@@ -68,7 +71,7 @@ function resolveStyle<T>(breakpoints: Breakpoint<T>[], viewportWidth: number): T
 
 // ─── Component ────────────────────────────────────────────────────────────────
 
-export function CoupleNames() {
+export function CoupleNames({ perspective = "bride" }: { perspective?: Perspective }) {
   const sectionRef = useRef<HTMLDivElement>(null);
   const leavesRef  = useRef<HTMLDivElement>(null);
   const mandapRef  = useRef<HTMLDivElement>(null);
@@ -189,22 +192,27 @@ export function CoupleNames() {
           <br />
           wedding ceremony of
         </p>
+
+        {/* ── First person ── */}
         <p className="reveal-line mt-2 font-serif italic tracking-wide text-5xl font-medium text-[#800020] capitalize first-letter:text-7xl sm:text-6xl sm:first-letter:text-8xl">
-          {COUPLE.brideName}
+          {perspective === "groom" ? COUPLE.groomName : COUPLE.brideName}
         </p>
         <p className="reveal-line text-xs text-[#6b7a3a] sm:text-sm">
-          {COUPLE.brideParentage}
+          {perspective === "groom" ? COUPLE.groomParentage : COUPLE.brideParentage}
         </p>
+
         <div className="reveal-line my-3 flex items-center justify-center gap-3">
           <span className="h-px w-10 bg-[#c9a24b]" />
           <span className="font-script italic text-2xl text-[#c9a24b]">Weds</span>
           <span className="h-px w-10 bg-[#c9a24b]" />
         </div>
+
+        {/* ── Second person ── */}
         <p className="reveal-line font-serif italic tracking-wide text-5xl font-medium text-[#800020] capitalize first-letter:text-7xl sm:text-6xl sm:first-letter:text-8xl -mt-5">
-          {COUPLE.groomName}
+          {perspective === "groom" ? COUPLE.brideName : COUPLE.groomName}
         </p>
         <p className="reveal-line text-xs text-[#6b7a3a] sm:text-sm">
-          {COUPLE.groomParentage}
+          {perspective === "groom" ? COUPLE.brideParentage : COUPLE.groomParentage}
         </p>
       </div>
     </section>
