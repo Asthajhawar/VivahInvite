@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
 import Image from "next/image";
 import { useGSAP } from "@gsap/react";
 import { gsap } from "gsap";
@@ -36,6 +36,28 @@ export function HeroArch() {
 
   const hasPlayedRef   = useRef(false);
   const hasFinishedRef = useRef(false);
+
+  // Defer video preloading until AFTER the page's critical assets
+  // (hero-arch.png, scroll-down-2.png) have finished loading.
+  // This gives hero images full bandwidth priority on first paint.
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    const startPreload = () => {
+      // Switch from "none" → "auto" so the browser starts buffering
+      // the video silently in the background once the page is idle.
+      video.preload = "auto";
+    };
+
+    if (document.readyState === "complete") {
+      // Page already loaded (e.g. fast connection / cache hit)
+      startPreload();
+    } else {
+      window.addEventListener("load", startPreload, { once: true });
+      return () => window.removeEventListener("load", startPreload);
+    }
+  }, []);
 
   useGSAP(
     () => {
@@ -196,7 +218,7 @@ export function HeroArch() {
       {/* ── Arch image ──────────────────────────────────────────────────── */}
       <div ref={archRef} className="absolute inset-0">
         <Image
-          src="/images/hero/hero-arch.png"
+          src="/images/hero/hero-arch.jpg"
           alt="Wedding mandap archway"
           fill
           priority
@@ -204,19 +226,31 @@ export function HeroArch() {
         />
       </div>
 
-      {/* ── Overlay: cream wallpaper + video ──────────────────────────────
+
+      {/* ── Overlay: Ganesh fallback + video ──────────────────────────────
            • Starts at opacity-0; GSAP fades it in from progress 0.20
-           • NO autoPlay — JS owns playback entirely via the state machine
-           • preload="auto" buffers the video file in the background so
-             play() has no loading delay when the overlay becomes visible   */}
+           • Fallback image (intro_ganeshji.jpg) sits BEHIND the video.
+             On mobile/slow connections where video fails or is blocked,
+             the Ganesh image shows automatically — no blank screen.
+           • Video sits on top and covers the fallback when it plays.   */}
       <div ref={overlayRef} className="absolute inset-0 z-20 flex flex-col opacity-0">
+        {/* Fallback image — always rendered, visible if video doesn't play */}
+        <Image
+          src="/images/ganesh/intro_ganeshji.jpg"
+          alt="Shri Ganesh"
+          fill
+          priority
+          className="object-cover"
+        />
+
+        {/* Video sits above fallback; covers it when playing */}
         <video
           ref={videoRef}
           src="/images/ganesh/Utah 2.mp4"
           muted
           playsInline
-          preload="auto"
-          className="absolute inset-0 w-full h-full object-cover"
+          preload="none"
+          className="absolute inset-0 w-full h-full object-cover z-10"
           suppressHydrationWarning
         />
       </div>

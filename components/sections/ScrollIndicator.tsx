@@ -4,13 +4,11 @@ import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { useGSAP } from "@gsap/react";
 import { gsap } from "gsap";
-import { useMounted } from "@/hooks/useMounted";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 
 export function ScrollIndicator() {
   const wrapperRef = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(true);
-  const mounted = useMounted();
   const reducedMotion = useReducedMotion();
 
   useGSAP(
@@ -34,8 +32,6 @@ export function ScrollIndicator() {
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
-
-  if (!mounted) return null;
 
   return (
     <div

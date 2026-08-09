@@ -36,6 +36,25 @@ export default function RootLayout({
       lang="en"
       className={`${devanagariFont.variable} ${serifFont.variable} ${scriptFont.variable}`}
     >
+      <head>
+        {/*
+          Preload critical above-the-fold assets so the browser fetches them
+          as early as possible — before JS even runs.
+          Without this, they compete with CSS/JS bundles for bandwidth.
+        */}
+        <link
+          rel="preload"
+          as="image"
+          href="/images/hero/hero-arch.jpg"
+          fetchPriority="high"
+        />
+        <link
+          rel="preload"
+          as="image"
+          href="/images/hero/scroll-down-2.png"
+          fetchPriority="high"
+        />
+      </head>
       <body className="bg-[#fff8ed] text-[#1b2a4a] antialiased">
         <LenisProvider>{children}</LenisProvider>
       </body>
