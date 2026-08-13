@@ -40,7 +40,7 @@ export function JanvasaVenue() {
     >
       {/* Background */}
       <Image
-        src="/images/ganesh/into_wallpaper_keyframe_1.png"
+        src="/images/venue/janvasa-background.png"
         alt=""
         fill
         className="-z-10 object-cover"
