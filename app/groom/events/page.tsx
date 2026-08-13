@@ -6,6 +6,7 @@ import { CoupleNames } from "@/components/sections/CoupleNames";
 import { ShrinathjiHero } from "@/components/sections/ShrinathjiHero";
 import { DateRevealCard } from "@/components/sections/DateRevealCard";
 import { HaldiMehandi } from "@/components/sections/HaldiMehandi";
+import { JanvasaVenue } from "@/components/sections/JanvasaVenue";
 import { WeddingDetails } from "@/components/sections/WeddingDetails";
 import type { Metadata } from "next";
 
@@ -56,6 +57,7 @@ export default function GroomEventsPage() {
       <ShrinathjiHero />
       <DateRevealCard />
       <HaldiMehandi events={GROOM_EVENTS} />
+      <JanvasaVenue />
       <WeddingDetails />
     </main>
   );
