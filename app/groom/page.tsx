@@ -14,7 +14,7 @@ export const metadata: Metadata = {
  * Groom-side view of the wedding invitation.
  *
  * Differences from the default (bride-side) page:
- *  • Haldi & Mehandi section is hidden — not relevant for groom's family
+ *  • Haldi & Mehandi section is hidden — visit /groom/events for groom's ceremonies
  *  • CoupleNames shows Saksham first, then Astha
  */
 export default function GroomPage() {

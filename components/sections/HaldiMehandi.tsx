@@ -1,12 +1,22 @@
 // Server Component — no "use client" directive.
 // All images are rendered on the server so they arrive in the initial HTML,
 // eliminating the client-side waterfall that caused slow loading.
+//
+// Accepts an optional `events` prop so the same component can be reused
+// for both the bride page (default events) and the groom page (custom events).
 
 import Image from "next/image";
 import { HaldiMehandiCarousel } from "./HaldiMehandiCarousel";
 import { PetalDrift } from "./PetalDrift";
 
-const EVENTS = [
+export interface EventData {
+  heading: string;
+  date: string;
+  time: string;
+  image: string;
+}
+
+const BRIDE_EVENTS: EventData[] = [
   {
     heading: "Haldi Ceremony",
     date: "25 November 2026",
@@ -27,10 +37,15 @@ const EVENTS = [
   },
 ];
 
-export function HaldiMehandi() {
+interface Props {
+  /** Custom event list. Defaults to the bride-side events when omitted. */
+  events?: EventData[];
+}
+
+export function HaldiMehandi({ events = BRIDE_EVENTS }: Props) {
   // Build carousel event data with server-rendered image nodes.
   // The first card image gets `priority` so it is preloaded in the <head>.
-  const events = EVENTS.map((event, i) => ({
+  const carouselEvents = events.map((event, i) => ({
     heading: event.heading,
     date: event.date,
     time: event.time,
@@ -105,7 +120,7 @@ export function HaldiMehandi() {
       </div>
 
       {/* Interactive carousel — client component receives server-rendered image nodes */}
-      <HaldiMehandiCarousel events={events} />
+      <HaldiMehandiCarousel events={carouselEvents} />
     </section>
   );
 }
