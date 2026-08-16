@@ -22,7 +22,7 @@ export const metadata: Metadata = {
     url: "https://vivah-invite.vercel.app/groom/events",
     images: [
       {
-        url: "/Initial.jpg",
+        url: "https://vivah-invite.vercel.app/Inital.jpg",
         width: 1200,
         height: 630,
       },
