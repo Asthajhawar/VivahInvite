@@ -1,16 +1,29 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+/**
+ * ScrollIndicator — "Tap to Begin" gate
+ * ──────────────────────────────────────
+ * Uses the scroll-down-2.png circular frame with "Tap to Begin" text.
+ * Clickable — tap calls onTap() synchronously (valid browser gesture for audio).
+ * Disappears only when HeroArch sets visible=false (after tap).
+ */
+
+import { useRef } from "react";
 import Image from "next/image";
 import { useGSAP } from "@gsap/react";
 import { gsap } from "gsap";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 
-export function ScrollIndicator() {
+interface Props {
+  visible: boolean;
+  onTap: () => void;
+}
+
+export function ScrollIndicator({ visible, onTap }: Props) {
   const wrapperRef = useRef<HTMLDivElement>(null);
-  const [visible, setVisible] = useState(true);
   const reducedMotion = useReducedMotion();
 
+  // Gentle bob
   useGSAP(
     () => {
       if (reducedMotion || !wrapperRef.current) return;
@@ -25,21 +38,16 @@ export function ScrollIndicator() {
     { scope: wrapperRef, dependencies: [reducedMotion] }
   );
 
-  useEffect(() => {
-    function onScroll() {
-      setVisible(window.scrollY <= 80);
-    }
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
   return (
     <div
       ref={wrapperRef}
-      className="pointer-events-none absolute left-1/2 top-1/2 z-10 -translate-x-1/2 -translate-y-1/2 transition-opacity duration-300"
-      style={{ opacity: visible ? 1 : 0 }}
+      onClick={onTap}
+      className="absolute left-1/2 top-1/2 z-30 -translate-x-1/2 -translate-y-1/2
+                 cursor-pointer select-none transition-opacity duration-500"
+      style={{ opacity: visible ? 1 : 0, pointerEvents: visible ? "auto" : "none" }}
     >
       <div className="flex flex-col items-center gap-1">
+        {/* Circular frame */}
         <div className="relative h-[170px] w-[170px]">
           <Image
             src="/images/hero/scroll-down-2.png"
@@ -48,12 +56,14 @@ export function ScrollIndicator() {
             priority
             className="scroll-frame-shadow"
           />
-          <span className="absolute inset-0 flex items-center justify-center font-serif italic text-base font-medium leading-none tracking-widest text-[#7a5a1a] drop-shadow-sm">
-            Scroll Down
+          <span className="absolute inset-0 flex items-center justify-center
+                           font-serif italic text-base font-medium leading-none
+                           tracking-widest text-[#7a5a1a] drop-shadow-sm">
+            Tap to Begin
           </span>
         </div>
 
-        {/* Animated chevron arrows */}
+        {/* Chevrons */}
         <div className="flex flex-col items-center -mt-1">
           {[0, 1, 2].map((i) => (
             <svg

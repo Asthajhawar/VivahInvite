@@ -1,6 +1,7 @@
 import "./globals.css";
 import type { Metadata } from "next";
 import { LenisProvider } from "@/components/LenisProvider";
+import BackgroundAudio from "@/components/BackgroundAudio";
 import { devanagariFont, serifFont, scriptFont } from "./fonts";
 
 export const metadata: Metadata = {
@@ -56,6 +57,7 @@ export default function RootLayout({
         />
       </head>
       <body className="bg-[#fff8ed] text-[#1b2a4a] antialiased">
+        <BackgroundAudio />
         <LenisProvider>{children}</LenisProvider>
       </body>
     </html>

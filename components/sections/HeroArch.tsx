@@ -1,11 +1,13 @@
 "use client";
 
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState, useCallback } from "react";
 import Image from "next/image";
 import { useGSAP } from "@gsap/react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ScrollIndicator } from "./ScrollIndicator";
+import { ScrollDownHint } from "./ScrollDownHint";
+import { useLenis } from "@/components/LenisProvider";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -21,12 +23,22 @@ gsap.registerPlugin(ScrollTrigger);
 //   hasPlayedRef   – true once play() has been called in this scroll pass
 //   hasFinishedRef – true once the video ends (either naturally via "ended" event
 //                    or via onLeave). Blocks every subsequent play() call.
-//                    Reset only by onLeaveBack (user fully above the section).
+//                    Reset only by onLeaveBack (user fully above the section).\
+//
+// Indicator state machine:
+//   tapVisible    – "Tap to Begin" shown (start of experience)
+//   hintVisible   – "Scroll Down" shown (after video ends, still pinned)
+//   Both are false during the animation (arch zoom + video playing).
 // ─────────────────────────────────────────────────────────────────────────────
+
+const SESSION_KEY = "vivah_audio_unlocked";
 
 /** Progress (0–1) at which the overlay begins fading in. Keep in sync with
  *  the GSAP timeline position below (0.20). */
 const VIDEO_START_PROGRESS = 0.20;
+
+// Ease-out expo: starts fast, decelerates smoothly
+const easeOutExpo = (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t));
 
 export function HeroArch() {
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -37,21 +49,58 @@ export function HeroArch() {
   const hasPlayedRef   = useRef(false);
   const hasFinishedRef = useRef(false);
 
+  // ── Indicator visibility ──────────────────────────────────────────────────
+  // tapVisible : "Tap to Begin" — shown on every fresh page load, always.
+  //              Hidden only after the user actually taps.
+  // hintVisible: "Scroll Down"  — shown only after video ends naturally
+  //              while still in the pinned section.
+  const [tapVisible,  setTapVisible]  = useState(true);
+  const [hintVisible, setHintVisible] = useState(false);
+
+  // Stable refs so GSAP callbacks can call setState without stale closures
+  const setHintRef = useRef(setHintVisible);
+  setHintRef.current = setHintVisible;
+  const setTapRef = useRef(setTapVisible);
+  setTapRef.current = setTapVisible;
+
+  // ── Lenis ─────────────────────────────────────────────────────────────────
+  const { lenis } = useLenis();
+  const lenisRef  = useRef(lenis);
+  lenisRef.current = lenis;
+
+  // ── Audio tap handler ─────────────────────────────────────────────────────
+  // MUST be synchronous inside the click handler → valid browser gesture.
+  const handleGateTap = useCallback(() => {
+    // 1. Unlock audio
+    const audio = (window as any).__vivahAudio as HTMLAudioElement | undefined;
+    if (audio) {
+      audio.muted = false;
+      if (audio.paused) audio.play().catch(() => {});
+      sessionStorage.setItem(SESSION_KEY, "1");
+    }
+
+    // 2. Hide tap indicator immediately
+    setTapVisible(false);
+
+    // 3. Auto-scroll through the entire pinned section.
+    //    Pin end = section natural top + 120 vh (matches end: "+=120%").
+    //    scrub:true on the ST means the GSAP animation follows scroll position,
+    //    so auto-scrolling drives the arch zoom + video automatically.
+    if (!sectionRef.current) return;
+    const pinEnd = sectionRef.current.offsetTop + window.innerHeight * 1.22;
+    lenisRef.current?.scrollTo(pinEnd, {
+      duration: 9,           // ~9 s — gives video enough time to complete
+      easing:   easeOutExpo,
+    });
+  }, []);
+
   // Defer video preloading until AFTER the page's critical assets
   // (hero-arch.png, scroll-down-2.png) have finished loading.
-  // This gives hero images full bandwidth priority on first paint.
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
-
-    const startPreload = () => {
-      // Switch from "none" → "auto" so the browser starts buffering
-      // the video silently in the background once the page is idle.
-      video.preload = "auto";
-    };
-
+    const startPreload = () => { video.preload = "auto"; };
     if (document.readyState === "complete") {
-      // Page already loaded (e.g. fast connection / cache hit)
       startPreload();
     } else {
       window.addEventListener("load", startPreload, { once: true });
@@ -64,17 +113,11 @@ export function HeroArch() {
       const video = videoRef.current;
       if (!video) return;
 
-      // Mute required for programmatic play() on mobile browsers
       video.muted = true;
-      // Pre-seek to frame 0 NOW so the first frame is rendered in the
-      // video element before the overlay ever fades in → no black flash
       video.pause();
       video.currentTime = 0;
 
       // ── rAF scrub loop ────────────────────────────────────────────────────
-      // Used ONLY when the user scrolls backward (to lerp currentTime backward).
-      // Self-cancels when scrubTarget returns to -1 so it burns no CPU at rest.
-      // Declared as const (not function) so TypeScript narrows `video` correctly.
       let rafId = 0;
       let scrubTarget = -1;
 
@@ -85,7 +128,7 @@ export function HeroArch() {
             Math.abs(diff) > 0.016 ? video.currentTime + diff * 0.15 : scrubTarget;
           rafId = requestAnimationFrame(tick);
         } else {
-          rafId = 0; // self-cancel
+          rafId = 0;
         }
       };
       const stopRaf = () => {
@@ -94,9 +137,8 @@ export function HeroArch() {
       const startRaf = () => { if (!rafId) rafId = requestAnimationFrame(tick); };
 
       // ── freeze(): permanent last-frame hold ───────────────────────────────
-      // Idempotent (safe to call multiple times from both "ended" and onLeave).
       const freeze = () => {
-        if (hasFinishedRef.current) return; // already frozen
+        if (hasFinishedRef.current) return;
         hasFinishedRef.current = true;
         scrubTarget = -1;
         stopRaf();
@@ -104,45 +146,48 @@ export function HeroArch() {
         if (video.duration > 0) video.currentTime = video.duration - 0.01;
       };
 
-      // ── "ended" event: catches natural video completion ───────────────────
-      // Without this: if the video ends BEFORE the pin's scroll range is
-      // exhausted, onUpdate (direction=1) sees a paused video and calls play()
-      // again → video restarts from frame 0 inside the pin range.
-      video.addEventListener("ended", freeze);
+      // ── "ended" event ─────────────────────────────────────────────────────
+      // Video finished naturally while still pinned.
+      // Show "Scroll Down" hint AND auto-scroll to pin end to complete the ride.
+      const onVideoEnded = () => {
+        freeze();
+        setHintRef.current(true);
+
+        // In case the user scrolled manually (no tap auto-scroll in progress),
+        // drive lenis to the pin end automatically so they don't have to scroll.
+        if (!sectionRef.current) return;
+        const pinEnd = sectionRef.current.offsetTop + window.innerHeight * 1.22;
+        lenisRef.current?.scrollTo(pinEnd, {
+          duration: 2.5,
+          easing:   easeOutExpo,
+        });
+      };
+      video.addEventListener("ended", onVideoEnded);
 
       // ── SINGLE unified ScrollTrigger ──────────────────────────────────────
-      // Controls BOTH the arch/overlay animation (via the scrubbed timeline)
-      // AND the video state machine (via onUpdate/onLeave/onEnterBack/onLeaveBack).
-      // Keeping them in ONE trigger eliminates ordering races between two STs.
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: sectionRef.current,
           start:   "top top",
-          end:     "+=120%",    // 120 vh pin — snappy, not "stuck"
+          end:     "+=120%",
           scrub:   true,
           pin:     true,
 
           onUpdate(self) {
-            // ── Hard gate ────────────────────────────────────────────────
-            // Once frozen, this is the ONLY exit. Nothing after this can
-            // call play() — regardless of how many times Lenis fires onUpdate.
             if (hasFinishedRef.current) return;
 
             const { direction, progress } = self;
 
             if (direction === -1 && video.duration > 0) {
-              // ── Scrolling UP: scrub backward via rAF ──────────────────
-              if (!hasPlayedRef.current) return; // video never started — nothing to scrub
+              if (!hasPlayedRef.current) return;
               if (!video.paused) video.pause();
               scrubTarget = Math.max(0, progress * video.duration);
               startRaf();
 
             } else if (direction === 1) {
-              // ── Scrolling DOWN ────────────────────────────────────────
-              if (progress < VIDEO_START_PROGRESS) return; // overlay invisible — too early
+              if (progress < VIDEO_START_PROGRESS) return;
 
               if (!hasPlayedRef.current) {
-                // First play this pass: always reset to frame 0 for clean start
                 scrubTarget = -1;
                 stopRaf();
                 video.currentTime = 0;
@@ -150,27 +195,22 @@ export function HeroArch() {
                 video.play().catch(() => {});
 
               } else if (video.paused && !video.ended) {
-                // Resume after user scrolled up then back down.
-                // Guard: !video.ended prevents restarting a naturally-ended video
-                // (the "ended" listener already called freeze() for that case).
                 scrubTarget = -1;
                 stopRaf();
                 video.play().catch(() => {});
               }
-              // video.ended === true → freeze() already ran → hasFinishedRef
-              // is true → we already returned at the top of this handler.
             }
           },
 
           onLeave() {
-            // User scrolled fully PAST the pin end — freeze permanently.
+            // Pin released — freeze video, hide both indicators.
             freeze();
+            setHintRef.current(false);
           },
 
           onEnterBack() {
-            // User scrolled back UP into the section from the next section.
-            // If video is done → hold last frame (onUpdate is already gated).
-            // If video is not done → onUpdate direction=-1 will scrub it backward.
+            // User scrolled back into the pinned section from below.
+            setHintRef.current(false);
             if (hasFinishedRef.current) {
               scrubTarget = -1;
               stopRaf();
@@ -180,8 +220,10 @@ export function HeroArch() {
           },
 
           onLeaveBack() {
-            // User scrolled fully ABOVE the section → complete reset.
-            // The NEXT downward scroll will replay the video from frame 0.
+            // User scrolled fully above — full reset.
+            // Restore "Tap to Begin" so the gate shows again.
+            setTapRef.current(true);
+            setHintRef.current(false);
             scrubTarget = -1;
             stopRaf();
             video.pause();
@@ -192,10 +234,10 @@ export function HeroArch() {
         },
       });
 
-      // ── Animation: arch zoom + overlay crossfade ──────────────────────────
+      // ── Animation ─────────────────────────────────────────────────────────
       //  0.00 → 0.40  Arch zooms in (scale 1 → 3)
-      //  0.20 → 0.40  Overlay fades in (VIDEO_START_PROGRESS = 0.20)
-      //  0.88 → 1.00  Hold — lets the user see the video before pin releases
+      //  0.20 → 0.40  Overlay fades in
+      //  0.88 → 1.00  Hold before pin releases
       tl.to(archRef.current, {
         scale: 3,
         transformOrigin: "50% 42%",
@@ -207,7 +249,7 @@ export function HeroArch() {
 
       return () => {
         stopRaf();
-        video.removeEventListener("ended", freeze);
+        video.removeEventListener("ended", onVideoEnded);
       };
     },
     { scope: sectionRef }
@@ -215,6 +257,7 @@ export function HeroArch() {
 
   return (
     <section ref={sectionRef} className="relative h-[100dvh] overflow-hidden">
+
       {/* ── Arch image ──────────────────────────────────────────────────── */}
       <div ref={archRef} className="absolute inset-0">
         <Image
@@ -226,7 +269,6 @@ export function HeroArch() {
         />
       </div>
 
-
       {/* ── Overlay: Ganesh fallback + video ──────────────────────────────
            • Starts at opacity-0; GSAP fades it in from progress 0.20
            • Fallback image (intro_ganeshji.jpg) sits BEHIND the video.
@@ -234,7 +276,6 @@ export function HeroArch() {
              the Ganesh image shows automatically — no blank screen.
            • Video sits on top and covers the fallback when it plays.   */}
       <div ref={overlayRef} className="absolute inset-0 z-20 flex flex-col opacity-0">
-        {/* Fallback image — always rendered, visible if video doesn't play */}
         <Image
           src="/images/ganesh/intro_ganeshji.jpg"
           alt="Shri Ganesh"
@@ -242,8 +283,6 @@ export function HeroArch() {
           priority
           className="object-cover"
         />
-
-        {/* Video sits above fallback; covers it when playing */}
         <video
           ref={videoRef}
           src="/images/ganesh/Utah 2.mp4"
@@ -255,7 +294,17 @@ export function HeroArch() {
         />
       </div>
 
-      <ScrollIndicator />
+      {/* ── Tap to Begin indicator ────────────────────────────────────────
+           Always shown on page load; hidden after user taps.            */}
+      <ScrollIndicator
+        visible={tapVisible}
+        onTap={handleGateTap}
+      />
+
+      {/* ── Scroll Down hint ──────────────────────────────────────────────
+           Shown after the video ends while still in the pinned section.  */}
+      <ScrollDownHint visible={hintVisible} />
+
     </section>
   );
 }
