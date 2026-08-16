@@ -11,9 +11,22 @@ import { WeddingDetails } from "@/components/sections/WeddingDetails";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Saksham's Pre-Wedding Events | Wedding Invitation",
+  title: "Saksham & Astha Wedding Invitation",
   description:
-    "Join us for Saksham's pre-wedding celebrations — Matkor, Haldi, Priti Bhoj & Maatrika Pooja.",
+    "Join us for Saksham & Astha pre-wedding celebrations — Matkor, Haldi, Priti Bhoj & Maatrika Pooja.",
+  openGraph: {
+    title: "Saksham & Astha Wedding Invitation",
+    description:
+      "Join us for Saksham & Astha's wedding celebrations — Matkor, Haldi, Priti Bhoj & Maatrika Pooja.",
+    url: "https://vivah-invite.vercel.app/groom/events",
+    images: [
+      {
+        url: "/Initial.jpg",
+        width: 1200,
+        height: 630,
+      },
+    ],
+  },
 };
 
 // Note: Next.js serves files from /public as the web root.
