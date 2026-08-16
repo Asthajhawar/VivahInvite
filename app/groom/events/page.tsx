@@ -8,6 +8,7 @@ import { DateRevealCard } from "@/components/sections/DateRevealCard";
 import { HaldiMehandi } from "@/components/sections/HaldiMehandi";
 import { JanvasaVenue } from "@/components/sections/JanvasaVenue";
 import { WeddingDetails } from "@/components/sections/WeddingDetails";
+import { BaaratTiming } from "@/components/sections/BaaratTiming";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -35,13 +36,13 @@ const GROOM_EVENTS = [
   {
     heading: "Matkor Ceremony",
     date: "21 November 2026",
-    time: "10:00 AM – 12:00 PM",
+    time: "",
     image: "/images/groom-events/matkor.png",
   },
   {
     heading: "Haldi Ceremony",
     date: "21 November 2026",
-    time: "4:00 PM – 7:00 PM",
+    time: "",
     image: "/images/groom-events/haldi.png",
   },
   {
@@ -53,7 +54,7 @@ const GROOM_EVENTS = [
   {
     heading: "Maatrika Pooja",
     date: "22 November 2026",
-    time: "4:00 PM – 7:00 PM",
+    time: "",
     image: "/images/groom-events/Maatrika-Pooja.png",
   },
 ];
@@ -71,6 +72,7 @@ export default function GroomEventsPage() {
       <DateRevealCard />
       <HaldiMehandi events={GROOM_EVENTS} />
       <JanvasaVenue />
+      <BaaratTiming />
       <WeddingDetails />
     </main>
   );
