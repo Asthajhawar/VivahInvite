@@ -187,6 +187,10 @@ export function HeroArch() {
             } else if (direction === 1) {
               if (progress < VIDEO_START_PROGRESS) return;
 
+              // Hide "Tap to Begin" if the user scrolled past the threshold
+              // without tapping (it was only hidden on explicit tap before).
+              setTapRef.current(false);
+
               if (!hasPlayedRef.current) {
                 scrubTarget = -1;
                 stopRaf();
