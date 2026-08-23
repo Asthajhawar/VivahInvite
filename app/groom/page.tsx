@@ -10,12 +10,12 @@ import { BaaratTiming } from "@/components/sections/BaaratTiming";
 export const metadata: Metadata = {
   title: "Saksham & Astha Wedding Invitation",
   description:
-    "Join us for Saksham & Astha pre-wedding celebrations — Matkor, Haldi, Priti Bhoj & Maatrika Pooja.",
+    "Join us for Saksham & Astha celebrations",
   openGraph: {
     title: "Saksham & Astha Wedding Invitation",
     description:
-      "Join us for Saksham & Astha's wedding celebrations — Matkor, Haldi, Priti Bhoj & Maatrika Pooja.",
-    url: "https://vivah-invite.vercel.app/groom/events",
+      "Join us for Saksham & Astha's wedding celebrations.",
+    url: "https://vivah-invite.vercel.app/groom",
     images: [
       {
         url: "https://vivah-invite.vercel.app/Inital.jpg",
