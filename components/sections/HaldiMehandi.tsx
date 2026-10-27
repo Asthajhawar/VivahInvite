@@ -20,19 +20,19 @@ const BRIDE_EVENTS: EventData[] = [
   {
     heading: "Haldi Ceremony",
     date: "25 November 2026",
-    time: "10:00 AM – 12:00 PM",
+    time: "11:00 AM",
     image: "/images/haldi-mehandi/event-haldi.jpeg",
   },
   {
     heading: "Mehandi Ceremony",
     date: "24 November 2026",
-    time: "4:00 PM – 7:00 PM",
+    time: "",
     image: "/images/haldi-mehandi/event-mehandi.jpeg",
   },
   {
     heading: "Maayra Ceremony",
     date: "25 November 2026",
-    time: "4:00 PM – 7:00 PM",
+    time: "5:00 PM",
     image: "/images/haldi-mehandi/event-maayra.png",
   },
 ];
