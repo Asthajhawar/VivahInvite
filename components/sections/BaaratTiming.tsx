@@ -5,7 +5,15 @@ import Image from "next/image";
 import { useGSAP } from "@gsap/react";
 import { gsap } from "gsap";
 
-export function BaaratTiming() {
+interface BaaratTimingProps {
+  title?: string;
+  startTime?: string;
+}
+
+export function BaaratTiming({
+  title = "Baraat Timing",
+  startTime = "2:30 PM",
+}: BaaratTimingProps = {}) {
   const sectionRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
 
@@ -61,7 +69,7 @@ export function BaaratTiming() {
           className="font-serif italic text-4xl sm:text-5xl font-medium leading-tight drop-shadow-md"
           style={{ color: "#800020" }}
         >
-          Baraat Timing
+          {title}
         </h2>
 
         {/* Time line — olive green like rest of page labels */}
@@ -71,7 +79,7 @@ export function BaaratTiming() {
         >
           Starts from{" "}
           <span className="font-semibold" style={{ color: "#800020" }}>
-            2:30 PM
+            {startTime}
           </span>
         </p>
 
