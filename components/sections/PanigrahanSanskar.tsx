@@ -52,14 +52,14 @@ export function PanigrahanSanskar() {
       >
         {/* Label */}
         <div className="flex items-center gap-3 mb-2 sm:mb-3 justify-center">
-          <span className="block h-px w-6 sm:w-8 bg-[#c9a24b]/80" />
+          <span className="block h-px w-6 sm:w-8 bg-white/70" />
           <span
             className="font-serif text-[9px] sm:text-[10px] uppercase tracking-[0.25em] sm:tracking-[0.28em]"
-            style={{ color: "#c9a24b" }}
+            style={{ color: "#ffffff" }}
           >
             Sacred Ceremony
           </span>
-          <span className="block h-px w-6 sm:w-8 bg-[#c9a24b]/80" />
+          <span className="block h-px w-6 sm:w-8 bg-white/70" />
         </div>
 
         {/* Main heading — scales with viewport */}
@@ -83,11 +83,11 @@ export function PanigrahanSanskar() {
 
         {/* Decorative dot row */}
         <div className="mt-3 sm:mt-4 flex gap-1.5 items-center justify-center">
-          <span className="block w-1.5 h-1.5 rounded-full bg-[#c9a24b]/60" />
-          <span className="block w-5 sm:w-6 h-px bg-[#c9a24b]/60" />
-          <span className="block w-1.5 h-1.5 rounded-full bg-[#c9a24b]" />
-          <span className="block w-5 sm:w-6 h-px bg-[#c9a24b]/60" />
-          <span className="block w-1.5 h-1.5 rounded-full bg-[#c9a24b]/60" />
+          <span className="block w-1.5 h-1.5 rounded-full bg-white/50" />
+          <span className="block w-5 sm:w-6 h-px bg-white/50" />
+          <span className="block w-1.5 h-1.5 rounded-full bg-white/90" />
+          <span className="block w-5 sm:w-6 h-px bg-white/50" />
+          <span className="block w-1.5 h-1.5 rounded-full bg-white/50" />
         </div>
       </div>
     </section>
