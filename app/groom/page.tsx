@@ -6,6 +6,8 @@ import { WeddingDetails } from "@/components/sections/WeddingDetails";
 import type { Metadata } from "next";
 import { JanvasaVenue } from "@/components/sections/JanvasaVenue";
 import { BaaratTiming } from "@/components/sections/BaaratTiming";
+import { PanigrahanSanskar } from "@/components/sections/PanigrahanSanskar";
+import { PritiBhoj } from "@/components/sections/PritiBhoj";
 
 export const metadata: Metadata = {
   title: "Saksham & Astha Wedding Invitation",
@@ -42,7 +44,9 @@ export default function GroomPage() {
       <DateRevealCard />
       <JanvasaVenue />
       <BaaratTiming />
+      <PanigrahanSanskar />
       <WeddingDetails />
+      <PritiBhoj />
     </main>
   );
 }

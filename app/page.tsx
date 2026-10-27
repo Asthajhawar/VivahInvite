@@ -5,6 +5,8 @@ import { DateRevealCard } from "@/components/sections/DateRevealCard";
 import { HaldiMehandi } from "@/components/sections/HaldiMehandi";
 import { WeddingDetails } from "@/components/sections/WeddingDetails";
 import { BaaratTiming } from "@/components/sections/BaaratTiming";
+import { PanigrahanSanskar } from "@/components/sections/PanigrahanSanskar";
+import { PritiBhoj } from "@/components/sections/PritiBhoj";
 
 export default function Page() {
   return (
@@ -15,7 +17,9 @@ export default function Page() {
       <DateRevealCard />
       <HaldiMehandi />
       <BaaratTiming title="Baarat Swaagat" startTime="4:00 PM" />
+      <PanigrahanSanskar />
       <WeddingDetails />
+      <PritiBhoj />
     </main>
   );
 }

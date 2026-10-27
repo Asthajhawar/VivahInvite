@@ -9,6 +9,8 @@ import { HaldiMehandi } from "@/components/sections/HaldiMehandi";
 import { JanvasaVenue } from "@/components/sections/JanvasaVenue";
 import { WeddingDetails } from "@/components/sections/WeddingDetails";
 import { BaaratTiming } from "@/components/sections/BaaratTiming";
+import { PanigrahanSanskar } from "@/components/sections/PanigrahanSanskar";
+import { PritiBhoj } from "@/components/sections/PritiBhoj";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -73,7 +75,9 @@ export default function GroomEventsPage() {
       <HaldiMehandi events={GROOM_EVENTS} />
       <JanvasaVenue />
       <BaaratTiming />
+      <PanigrahanSanskar />
       <WeddingDetails />
+      <PritiBhoj />
     </main>
   );
 }
