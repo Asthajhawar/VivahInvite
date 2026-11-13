@@ -81,6 +81,14 @@ export function PanigrahanSanskar() {
           </span>
         </p>
 
+        {/* Date */}
+        <p
+          className="mt-1 sm:mt-1.5 font-serif text-sm sm:text-base drop-shadow"
+          style={{ color: "#ffffff" }}
+        >
+          26 November 2026
+        </p>
+
         {/* Decorative dot row */}
         <div className="mt-3 sm:mt-4 flex gap-1.5 items-center justify-center">
           <span className="block w-1.5 h-1.5 rounded-full bg-white/50" />

@@ -8,11 +8,13 @@ import { gsap } from "gsap";
 interface BaaratTimingProps {
   title?: string;
   startTime?: string;
+  date?: string;
 }
 
 export function BaaratTiming({
   title = "Baraat Timing",
   startTime = "2:30 PM",
+  date = "26 November 2026",
 }: BaaratTimingProps = {}) {
   const sectionRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
@@ -81,6 +83,14 @@ export function BaaratTiming({
           <span className="font-semibold" style={{ color: "#800020" }}>
             {startTime}
           </span>
+        </p>
+
+        {/* Date */}
+        <p
+          className="mt-1 sm:mt-1.5 font-serif text-xl sm:text-2xl drop-shadow"
+          style={{ color: "#c9a24b" }}
+        >
+          {date}
         </p>
 
         {/* Decorative dot row */}
